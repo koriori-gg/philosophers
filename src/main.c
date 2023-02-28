@@ -2,5 +2,5 @@
 
 int main(void)
 {
-	ft_printf("start");
+	printf("start");
 }
