@@ -6,7 +6,7 @@
 /*   By: ihashimo <maaacha.kuri05@gmail.com>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/05 23:49:13 by ihashimo          #+#    #+#             */
-/*   Updated: 2023/01/10 10:40:55 by ihashimo         ###   ########.fr       */
+/*   Updated: 2023/02/28 13:53:28 by ihashimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if (((unsigned char *)s)[i] == (unsigned char)c)
-			return ((void *)&s[i]);
+			return (&((unsigned char *)s)[i]);
 		i++;
 	}
 	return (NULL);
