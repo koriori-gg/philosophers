@@ -32,8 +32,10 @@ int main(int argc, char **argv)
 	void 		*retval;
 
    // スレッドを作成
+   if (argc != 5)
+		printf("argument error");
    	count = atoi(argv[1]);
-	thread = (pthread_t)malloc(sizeof(pthread_t) * count);
+	thread = (pthread_t *)malloc(sizeof(pthread_t) * count);
 	i = 0;
 	while(i < count)
 	{
@@ -42,15 +44,19 @@ int main(int argc, char **argv)
 			return (0);
 		i++;
 	}
-
-	if (pthread_create(&thread, NULL, philo, NULL) != 0)
-       // エラー処理
-       return (0);
 	// スレッドの終了方法
 	// 1. スレッドが終了するまで待つ
-	pthread_join(thread, &retval);
-	pthread_join(thread, &retval);
+	i = 0;
+	while(i < count)
+	{
+		pthread_join(thread[i], &retval);
+		i++;
+	}
 	// 2. スレッドを待たない
-	pthread_detach(thread);
-	pthread_detach(thread);
+	i = 0;
+	while(i < count)
+	{
+			pthread_detach(thread[i]);
+		i++;
+	}
 }
