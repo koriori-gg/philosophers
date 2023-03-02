@@ -8,4 +8,6 @@
 # include <unistd.h>
 # include <sys/time.h>
 
+void	error_exit(char *message, int status);
+
 #endif
