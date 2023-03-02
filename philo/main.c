@@ -8,6 +8,7 @@ void *philo(void *arg)
 	return (arg);
 }
 
+//usleep μs -> x100 = ms
 void eating(int time)
 {
 	usleep(time * 1000);
@@ -17,19 +18,13 @@ void sleeping(int time)
 {
 	usleep(time * 1000);
 }
-
-void thinking(int time)
-{
-	usleep(time * 1000);
-}
-
 //number_of_philosophers time_to_die time_to_eat time_to_sleep
 int main(int argc, char **argv)
 {
 	pthread_t	*thread;
 	int			count;
 	int			i;
-	pthread_mutex_t mutex;
+	pthread_mutex_t *mutex;
 	void 		*retval;
 
 	// スレッドを作成
@@ -37,7 +32,13 @@ int main(int argc, char **argv)
 		error_exit("argument error\n", EXIT_FAILURE);
 	count = atoi(argv[1]);
 	thread = (pthread_t *)malloc(sizeof(pthread_t) * count);
-	pthread_mutex_init(&mutex, NULL);
+	mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * count);
+	i = 0;
+	while(i < count)
+	{
+		pthread_mutex_init(&mutex[i], NULL);
+		i++;
+	}
 	i = 0;
 	while(i < count)
 	{
