@@ -8,6 +8,15 @@
 # include <unistd.h>
 # include <sys/time.h>
 
+typedef struct s_philo
+{
+	pthread_t		*thread;
+	int				count;
+	int				i;
+	pthread_mutex_t *mutex;
+	void 			*retval;
+}				t_philo;
+
 void	error_exit(char *message, int status);
 
 #endif
