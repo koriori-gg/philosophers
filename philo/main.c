@@ -4,20 +4,34 @@ void *philo(void *arg)
 {
 	printf("I am Philo\n");
 	printf("%s: %p\n", __func__, pthread_self());
+	printf("%p\n", arg);
 	sleep(1);
 	return (arg);
 }
 
 //usleep μs -> x100 = ms
+
+void	take_a_fork()
+{
+	printf(" has taken a fork\n");
+}
 void eating(int time)
 {
+	printf(" is eating\n");
 	usleep(time * 1000);
 }
 
 void sleeping(int time)
 {
+	printf(" is sleeping\n");
 	usleep(time * 1000);
 }
+
+void thinking()
+{
+	printf(" is thinking\n");
+}
+//現在のphilo毎の状態を保存しておくものが必要そう<-じゃないと何回もthinkしたりしそう
 //number_of_philosophers time_to_die time_to_eat time_to_sleep
 int main(int argc, char **argv)
 {
