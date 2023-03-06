@@ -18,5 +18,9 @@ typedef struct s_philo
 }				t_philo;
 
 void	error_exit(char *message, int status);
+void	take_a_fork();
+void	eating(int time);
+void	sleeping(int time);
+void	thinking();
 
 #endif
