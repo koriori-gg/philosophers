@@ -9,6 +9,7 @@ RM = rm -f
 SRCS = \
 		main.c \
 		error.c \
+		action.c \
 
 
 OBJS = $(SRCS:.c=.o)
