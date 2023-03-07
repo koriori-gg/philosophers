@@ -31,11 +31,11 @@ int main(int argc, char **argv)
 	philo.time_to_eat = atoi(argv[3]);
 	philo.time_to_sleep = atoi(argv[4]);
 	philo.thread = (pthread_t *)malloc(sizeof(pthread_t) * philo.count);
-	philo.mutex = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo.count);
+	philo.fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * philo.count);
 	i = 0;
 	while(i < philo.count)
 	{
-		pthread_mutex_init(&philo.mutex[i], NULL);
+		pthread_mutex_init(&philo.fork[i], NULL);
 		i++;
 	}
 	i = 0;
