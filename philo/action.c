@@ -2,21 +2,38 @@
 //usleep μs -> x100 = ms
 void	take_a_fork()
 {
-	printf(" has taken a fork\n");
+	struct timeval tv;
+
+	if (gettimeofday(&tv , NULL))
+		printf("error\n");
+	printf("%ld has taken a fork\n", tv.tv_sec);
 }
-void eating(int time)
+void eating(t_philo	*philo)
 {
-	printf(" is eating\n");
-	usleep(time * 1000);
+	struct timeval tv;
+
+	if (gettimeofday(&tv , NULL))
+		printf("error\n");
+	printf("%ld is eating\n", tv.tv_sec);
+	usleep(philo->time_to_eat * 1000);
 }
 
-void sleeping(int time)
+void sleeping(t_philo *philo)
 {
-	printf(" is sleeping\n");
-	usleep(time * 1000);
+	struct timeval tv;
+
+	if (gettimeofday(&tv , NULL))
+		printf("error\n");
+	printf("%ld is sleeping\n", tv.tv_sec);
+	usleep(philo->time_to_sleep * 1000);
 }
 
-void thinking()
+void thinking(t_philo *philo)
 {
-	printf(" is thinking\n");
+	struct timeval tv;
+
+	(void)philo;
+	if (gettimeofday(&tv , NULL))
+		printf("error\n");
+	printf("%ld is thinking\n", tv.tv_sec);
 }

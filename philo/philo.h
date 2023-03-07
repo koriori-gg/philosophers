@@ -12,6 +12,9 @@ typedef struct s_philo
 {
 	pthread_t		*thread;
 	int				count;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
 	int				i;
 	pthread_mutex_t *mutex;
 	void 			*retval;
@@ -19,8 +22,8 @@ typedef struct s_philo
 
 void	error_exit(char *message, int status);
 void	take_a_fork();
-void	eating(int time);
-void	sleeping(int time);
-void	thinking();
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 #endif
