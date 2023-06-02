@@ -10,5 +10,5 @@ int main(int argc, char **argv)
 		return (1);
 	}
 	init_philo(argc, argv, &philo);
-	printf("%d\n", philo.number_of_philosophers);
+	printf("%ld\n", philo.number_of_philosophers);
 }

@@ -9,6 +9,8 @@ RM = rm -f
 SRCS = \
 	main.c \
 	init.c\
+	ft_atol.c \
+	ft_isdigit.c \
 
 OBJS = $(SRCS:.c=.o)
 
