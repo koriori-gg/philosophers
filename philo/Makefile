@@ -6,7 +6,9 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRCS = main.c
+SRCS = \
+	main.c \
+	init.c\
 
 OBJS = $(SRCS:.c=.o)
 
