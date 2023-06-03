@@ -6,13 +6,14 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
-# include <limits.h> 
+# include <limits.h>
 
 typedef struct s_philo {
-	long number_of_philosophers;
-    long time_to_die;
-    long time_to_eat;
-    long time_to_sleep;
+	long		number_of_philosophers;
+    long		time_to_die;
+    long		time_to_eat;
+    long		time_to_sleep;
+	pthread_t	thread;
 }	t_philo;
 
 void	init_philo(int argc, char **argv, t_philo *philo);
