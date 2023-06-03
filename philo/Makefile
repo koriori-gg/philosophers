@@ -9,6 +9,7 @@ RM = rm -f
 SRCS = \
 	main.c \
 	init.c\
+	action.c \
 	ft_atol.c \
 	ft_isdigit.c \
 
