@@ -4,7 +4,10 @@ long long sum = 0;
 
 void *add(void *arg)
 {
-	(void)arg;
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	(void)philo;
 	sum += 1;
 	return (NULL);
 }
