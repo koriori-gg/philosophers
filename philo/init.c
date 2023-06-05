@@ -1,10 +1,13 @@
 #include "philo.h"
 
-void	init_philo(int argc, char **argv, t_philo *philo)
+void	init_table(int argc, char **argv, t_table *table)
 {
 	(void)argc;
-	philo->number_of_philosophers = ft_atol(argv[1]);
-	philo->time_to_die = ft_atol(argv[2]);
-	philo->time_to_eat = ft_atol(argv[3]);
-	philo->time_to_sleep = ft_atol(argv[4]);
+	table->num_philo = ft_atol(argv[1]);
+	table->time_to_die = ft_atol(argv[2]);
+	table->time_to_eat = ft_atol(argv[3]);
+	table->time_to_sleep = ft_atol(argv[4]);
+	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->num_philo);
+	if (!table->philo)
+		exit(1);
 }
