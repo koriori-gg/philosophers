@@ -27,6 +27,7 @@ void	stop_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
+		pthread_mutex_destroy(&(simulation->philo[i].l_fork));
 		pthread_join(simulation->philo[i].thread, NULL);
 		i++;
     }
@@ -44,7 +45,7 @@ int main(int argc, char **argv)
 	if (!is_valid(argc, argv))
 		return (1);
 	init_simulation(argc, argv, &simulation);
-	// start_simulation(&simulation);
-	// stop_simulation(&simulation);
+	start_simulation(&simulation);
+	stop_simulation(&simulation);
 	return (0);
 }
