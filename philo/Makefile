@@ -10,6 +10,8 @@ SRCS = \
 	main.c \
 	init.c\
 	action.c \
+	time.c \
+	dead.c \
 	ft_atol.c \
 	ft_isdigit.c \
 

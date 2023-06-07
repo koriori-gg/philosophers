@@ -1,13 +1,37 @@
 #include "philo.h"
 
-void	init_table(int argc, char **argv, t_table *table)
+static void init_philo(int argc, char **argv, t_simulation *simulation)
+{
+	int	i;
+
+	i = 0;
+	(void)argv;
+	while(i < argc - 1)
+	{
+		simulation->philo[i].id = i;
+		simulation->philo[i].eat_count = 0;
+		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);
+		if (i > 0)
+			simulation->philo[i].r_fork = &(simulation->philo[i - 1].l_fork);
+		if (i == argc - 2)
+			simulation->philo[0].r_fork = &(simulation->philo[i].l_fork);
+		simulation->philo[i].simulation = simulation;
+		i++;
+	}
+}
+
+void	init_simulation(int argc, char **argv, t_simulation *simulation)
 {
 	(void)argc;
-	table->num_philo = ft_atol(argv[1]);
-	table->time_to_die = ft_atol(argv[2]);
-	table->time_to_eat = ft_atol(argv[3]);
-	table->time_to_sleep = ft_atol(argv[4]);
-	table->philo = (t_philo *)malloc(sizeof(t_philo) * table->num_philo);
-	if (!table->philo)
+	simulation->num_philo = ft_atol(argv[1]);
+	simulation->time_to_die = ft_atol(argv[2]);
+	simulation->time_to_eat = ft_atol(argv[3]);
+	simulation->time_to_sleep = ft_atol(argv[4]);
+	simulation->start = get_time() + 1000;
+	if (argc == 6)
+		simulation->must_eat = ft_atol(argv[5]);
+	simulation->philo = (t_philo *)malloc(sizeof(t_philo) * simulation->num_philo);
+	if (!simulation->philo)
 		exit(1);
+	init_philo(argc, argv, simulation);
 }
