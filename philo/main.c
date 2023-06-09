@@ -18,6 +18,7 @@ void	start_simulation(t_simulation *simulation)
 		pthread_create(&simulation->philo[i].thread, NULL, philo_actions, &(simulation->philo[i]));
 		i++;
     }
+	// monitor(simulation);
 }
 
 void	stop_simulation(t_simulation *simulation)

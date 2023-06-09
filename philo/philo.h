@@ -11,6 +11,7 @@
 # include <sys/time.h>
 
 enum e_state {
+	TAKE_A_FORK,
 	EAT,
 	SLEEP,
 	THINK,
@@ -41,6 +42,8 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation);
 void	*philo_actions(void *arg);
 bool	is_dead(t_philo *philo);
 long	get_time(void);
+void	wait_start_time(long start);
+void	wait_time(long now, long time);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 #endif

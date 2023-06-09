@@ -2,6 +2,7 @@
 
 bool	is_dead(t_philo *philo)
 {
-	(void)philo;
-	return (true);
+	if (philo->state == DIED)
+		return (true);
+	return (false);
 }

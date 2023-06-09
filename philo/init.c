@@ -6,7 +6,7 @@ static void init_philo(int argc, char **argv, t_simulation *simulation)
 
 	i = 0;
 	(void)argv;
-	while(i < argc - 1)
+	while (i < simulation->num_philo)
 	{
 		simulation->philo[i].id = i;
 		simulation->philo[i].eat_count = 0;
