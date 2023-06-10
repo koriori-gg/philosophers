@@ -20,7 +20,8 @@ void	monitor(t_simulation *simulation)
 			//mutex 必要かも
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
-			printf("%ld %ld is died\n", now, simulation->philo[i].id);
+			simulation->philo[i].state = DIED;
+			print_message(&(simulation->philo[i]), now);
 			break ;
 		}
 		i++;
