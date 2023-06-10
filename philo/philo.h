@@ -39,13 +39,23 @@ typedef struct s_simulation {
 	t_philo	*philo;
 }	t_simulation;
 
+//init
 void	init_simulation(int argc, char **argv, t_simulation *simulation);
+//simulation
+void	start_simulation(t_simulation *simulation);
+void	stop_simulation(t_simulation *simulation);
+void	monitor(t_simulation *simulation);
+//action
 void	*philo_actions(void *arg);
+void	print_message(t_philo *philo, long time);
+//bool_handlers
+bool	is_valid(int argc, char **argv);
 bool	is_dead(t_philo *philo);
+//time
 long	get_time(void);
 void	wait_start_time(long start);
 void	wait_time(long now, long time);
-void	print_message(t_philo *philo, long time);
+//libft
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 #endif

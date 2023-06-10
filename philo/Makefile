@@ -11,7 +11,8 @@ SRCS = \
 	init.c\
 	action.c \
 	time.c \
-	dead.c \
+	simulation.c \
+	bool_handlers.c \
 	ft_atol.c \
 	ft_isdigit.c \
 
