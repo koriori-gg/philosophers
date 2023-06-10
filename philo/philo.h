@@ -56,6 +56,7 @@ long	get_time(void);
 void	wait_start_time(long start);
 void	wait_time(long now, long time);
 //libft
+size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 #endif
