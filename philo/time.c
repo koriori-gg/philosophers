@@ -11,7 +11,6 @@ long	get_time(void)
 
 void	wait_start_time(long start)
 {
-	printf("%ld\n", start);
 	while (1)
 	{
 		if (get_time() >= start)
@@ -23,7 +22,7 @@ void	wait_time(long now, long time)
 {
 	while (1)
 	{
-		if (now + time >= get_time())
+		if (get_time() >= now + time)
 			return ;
 	}
 }

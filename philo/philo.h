@@ -21,6 +21,7 @@ enum e_state {
 typedef struct s_philo {
 	long			id;
 	long			eat_count;
+	long			last_eat_time;
 	int				state;
 	pthread_t		thread;
 	pthread_mutex_t	l_fork;

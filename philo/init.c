@@ -10,6 +10,7 @@ static void init_philo(int argc, char **argv, t_simulation *simulation)
 	{
 		simulation->philo[i].id = i;
 		simulation->philo[i].eat_count = 0;
+		simulation->philo[i].last_eat_time = simulation->start;
 		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);
 		if (i > 0)
 			simulation->philo[i].r_fork = &(simulation->philo[i - 1].l_fork);

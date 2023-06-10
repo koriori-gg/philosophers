@@ -7,6 +7,28 @@ bool	is_valid(int argc, char **argv)
 	return (true);
 }
 
+void	monitor(t_simulation *simulation)
+{
+	long	i;
+	long	now;
+
+	i = 0;
+	wait_start_time(simulation->start);
+	while (1)
+	{
+		now = get_time();
+			//mutex 必要かも
+		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
+		{
+			printf("%ld %ld is died\n", now, simulation->philo[i].id);
+			break ;
+		}
+		i++;
+		if (simulation->num_philo == i)
+			i = 0;
+	}
+
+}
 
 void	start_simulation(t_simulation *simulation)
 {
@@ -18,7 +40,7 @@ void	start_simulation(t_simulation *simulation)
 		pthread_create(&simulation->philo[i].thread, NULL, philo_actions, &(simulation->philo[i]));
 		i++;
     }
-	// monitor(simulation);
+	monitor(simulation);
 }
 
 void	stop_simulation(t_simulation *simulation)
