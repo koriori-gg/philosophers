@@ -9,13 +9,14 @@ bool	is_valid_argument(int argc, char **argv)
 		printf("usage: ./philo num_philo die eat sleep\n");
 		return (false);
 	}
-	if (ft_atol(argv[0]) == 0)
+	if (ft_atol(argv[1]) == 0)
 		return (false);
 	i = 1;
 	while (i < argc)
 	{
 		if ((ft_atol(argv[i]) == 0 || ft_atol(argv[i]) == -1) && ft_strlen(argv[i]) > 2)
 			return (false);
+		i++;
 	}
 	return (true);
 }
