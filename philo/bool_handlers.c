@@ -1,6 +1,6 @@
 #include "philo.h"
 
-bool	is_valid(int argc, char **argv)
+bool	is_valid_argument(int argc, char **argv)
 {
 	int	i;
 

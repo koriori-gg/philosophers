@@ -49,7 +49,7 @@ void	monitor(t_simulation *simulation);
 void	*philo_actions(void *arg);
 void	print_message(t_philo *philo, long time);
 //bool_handlers
-bool	is_valid(int argc, char **argv);
+bool	is_valid_argument(int argc, char **argv);
 bool	is_dead(t_philo *philo);
 //time
 long	get_time(void);
