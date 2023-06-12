@@ -30,12 +30,14 @@ typedef struct s_philo {
 }	t_philo;
 
 typedef struct s_simulation {
-	long	num_philo;
-	long	time_to_die;
-	long	time_to_eat;
-	long	time_to_sleep;
-	long	must_eat;
-	long	start;
+	long			num_philo;
+	long			time_to_die;
+	long			time_to_eat;
+	long			time_to_sleep;
+	long			must_eat;
+	long			start;
+	bool			stop;
+	pthread_mutex_t	mutex;
 	t_philo	*philo;
 }	t_simulation;
 
@@ -47,7 +49,7 @@ void	stop_simulation(t_simulation *simulation);
 void	monitor(t_simulation *simulation);
 //action
 void	*philo_actions(void *arg);
-void	print_message(t_philo *philo, long time);
+bool	print_message(t_philo *philo, long time);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
 bool	is_dead(t_philo *philo);

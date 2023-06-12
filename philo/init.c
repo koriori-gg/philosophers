@@ -29,6 +29,8 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->time_to_eat = ft_atol(argv[3]);
 	simulation->time_to_sleep = ft_atol(argv[4]);
 	simulation->start = get_time() + 1000;
+	simulation->stop = false;
+	pthread_mutex_init(&(simulation->mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
 	simulation->philo = (t_philo *)malloc(sizeof(t_philo) * simulation->num_philo);
