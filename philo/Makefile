@@ -6,7 +6,16 @@ CFLAGS = -Wall -Wextra -Werror
 
 RM = rm -f
 
-SRCS = main.c
+SRCS = \
+	main.c \
+	init.c\
+	action.c \
+	time.c \
+	simulation.c \
+	bool_handlers.c \
+	ft_strlen.c \
+	ft_atol.c \
+	ft_isdigit.c \
 
 OBJS = $(SRCS:.c=.o)
 
