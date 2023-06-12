@@ -43,7 +43,7 @@ void	philo_sleep(t_philo *philo)
 	philo->state = SLEEP;
 	now = get_time();
 	print_message(philo, now);
-	wait_time(now, philo->simulation->time_to_eat);
+	wait_time(now, philo->simulation->time_to_sleep);
 }
 
 void	philo_think(t_philo *philo)
