@@ -15,13 +15,13 @@ void	monitor(t_simulation *simulation)
 		{
 			simulation->philo[i].state = DIED;
 			print_message(&(simulation->philo[i]), now);
+			simulation->stop = true;
 			break ;
 		}
 		i++;
 		if (simulation->num_philo == i)
 			i = 0;
 	}
-
 }
 
 void	start_simulation(t_simulation *simulation)

@@ -28,18 +28,37 @@ bool	print_message(t_philo *philo, long now)
 void	philo_take_a_fork(t_philo *philo)
 {
 	philo->state = TAKE_A_FORK;
-	pthread_mutex_lock(&(philo->l_fork));
-	if (!print_message(philo, get_time()))
+	if (philo->id % 2 == 0)
 	{
-		pthread_mutex_unlock(&(philo->l_fork));
-		return ;
+		pthread_mutex_lock(&(philo->l_fork));
+		if (!print_message(philo, get_time()))
+		{
+			pthread_mutex_unlock(&(philo->l_fork));
+			return ;
+		}
+		pthread_mutex_lock(philo->r_fork);
+		if (!print_message(philo, get_time()))
+		{
+			pthread_mutex_unlock(&(philo->l_fork));
+			pthread_mutex_unlock(philo->r_fork);
+			return ;
+		}
 	}
-	pthread_mutex_lock(philo->r_fork);
-	if (!print_message(philo, get_time()))
+	else
 	{
-		pthread_mutex_unlock(&(philo->l_fork));
-		pthread_mutex_unlock(philo->r_fork);
-		return ;
+		pthread_mutex_lock(philo->r_fork);
+		if (!print_message(philo, get_time()))
+		{
+			pthread_mutex_unlock(&(philo->l_fork));
+			return ;
+		}
+		pthread_mutex_lock(&(philo->l_fork));
+		if (!print_message(philo, get_time()))
+		{
+			pthread_mutex_unlock(philo->r_fork);
+			pthread_mutex_unlock(&(philo->l_fork));
+			return ;
+		}
 	}
 }
 
@@ -71,6 +90,8 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_think(t_philo *philo)
 {
+	if (philo->state == THINK)
+		return ;
 	philo->state = THINK;
 	if (!print_message(philo, get_time()))
 		return ;
@@ -82,10 +103,7 @@ void	*philo_actions(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_start_time(philo->simulation->start);
-	if (philo->id % 2 == 1)
-	{
-		wait_time(philo->simulation->start, philo->simulation->time_to_eat);
-	}
+	wait_time(philo->simulation->start, philo->simulation->time_to_eat * (philo->id % 2) / 3);
 	while (!is_dead(philo))
 	{
 		philo_take_a_fork(philo);
