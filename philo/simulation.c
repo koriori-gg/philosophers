@@ -13,9 +13,11 @@ void	monitor(t_simulation *simulation)
 			//mutex 必要かも
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
+			pthread_mutex_lock(&simulation->mutex);
 			simulation->philo[i].state = DIED;
 			print_message(&(simulation->philo[i]), now);
 			simulation->stop = true;
+			pthread_mutex_unlock(&simulation->mutex);
 			break ;
 		}
 		i++;
@@ -47,6 +49,6 @@ void	stop_simulation(t_simulation *simulation)
 		pthread_mutex_destroy(&(simulation->philo[i].l_fork));
 		pthread_join(simulation->philo[i].thread, NULL);
 		i++;
-    }
+	}
 	pthread_mutex_destroy(&simulation->mutex);
 }
