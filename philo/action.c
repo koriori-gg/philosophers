@@ -20,7 +20,7 @@ bool	print_message(t_philo *philo, long now)
 	if (philo->state == THINK)
 		printf("%ld %ld is thinking\n", time, philo->id);
 	if (philo->state == DIED)
-		printf("%ld %ld is died\n", time, philo->id);
+		printf("%ld %ld died\n", time, philo->id);
 	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
 	return (true);
 }
