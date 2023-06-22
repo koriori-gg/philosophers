@@ -18,7 +18,7 @@ void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx)
 		exit(1);
 }
 
-void	ft_pthread_create(pthread_t *thread, void *func, t_simulation *philo_i)
+void	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i)
 {
 	if (pthread_create(thread, NULL, func, philo_i) != 0)
 		exit(1);

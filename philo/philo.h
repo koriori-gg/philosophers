@@ -62,4 +62,10 @@ size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 bool	is_number(char *str);
+//pthread
+void	ft_pthread_mutex_lock(pthread_mutex_t *mtx);
+void	ft_pthread_mutex_unlock(pthread_mutex_t *mtx);
+void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx);
+void	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i);
+void	ft_pthread_join(pthread_t thread);
 #endif

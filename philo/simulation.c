@@ -31,7 +31,7 @@ void	start_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		pthread_create(&simulation->philo[i].thread, NULL, philo_actions, &(simulation->philo[i]));
+		ft_pthread_create(&simulation->philo[i].thread, philo_actions, &(simulation->philo[i]));
 		i++;
     }
 	monitor(simulation);
@@ -44,9 +44,9 @@ void	stop_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		pthread_mutex_destroy(&(simulation->philo[i].l_fork));
-		pthread_join(simulation->philo[i].thread, NULL);
+		ft_pthread_mutex_destroy(&(simulation->philo[i].l_fork));
+		ft_pthread_join(simulation->philo[i].thread);
 		i++;
 	}
-	pthread_mutex_destroy(&simulation->mutex);
+	ft_pthread_mutex_destroy(&simulation->mutex);
 }

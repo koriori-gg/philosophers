@@ -12,6 +12,7 @@ SRCS = \
 	action.c \
 	time.c \
 	simulation.c \
+	ft_pthread.c \
 	bool_handlers.c \
 	is_number.c \
 	ft_strlen.c \
