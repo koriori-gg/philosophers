@@ -23,7 +23,7 @@ bool	is_valid_argument(int argc, char **argv)
 
 bool	is_dead(t_philo *philo)
 {
-	if (philo->state == DIED)
+	if (philo->simulation->stop)
 		return (true);
 	return (false);
 }

@@ -103,7 +103,8 @@ void	*philo_actions(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_start_time(philo->simulation->start);
-	wait_time(philo->simulation->start, philo->simulation->time_to_eat * (philo->id % 2) / 3);
+	if (philo->id / 2 == 0)
+		wait_time(philo->simulation->start, philo->simulation->time_to_eat / 2);
 	while (!is_dead(philo))
 	{
 		philo_take_a_fork(philo);
