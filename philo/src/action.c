@@ -21,7 +21,7 @@ void	pick_up_fork(t_philo *philo,
 void	philo_take_fork(t_philo *philo)
 {
 	philo->state = WAIT;
-	if (philo->id % 2 == 0)
+	if (philo->id % 2 == 1)
 		pick_up_fork(philo, &(philo->l_fork), philo->r_fork);
 	else
 		pick_up_fork(philo, philo->r_fork, &(philo->l_fork));
