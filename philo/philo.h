@@ -61,4 +61,5 @@ void	wait_time(long now, long time);
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
+bool	is_number(char *str);
 #endif

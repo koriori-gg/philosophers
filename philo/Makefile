@@ -13,6 +13,7 @@ SRCS = \
 	time.c \
 	simulation.c \
 	bool_handlers.c \
+	is_number.c \
 	ft_strlen.c \
 	ft_atol.c \
 	ft_isdigit.c \

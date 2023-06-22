@@ -2,7 +2,8 @@
 
 bool	is_valid_argument(int argc, char **argv)
 {
-	int	i;
+	int		i;
+	long	num;
 
 	if (argc != 5 && argc != 6)
 	{
@@ -14,7 +15,12 @@ bool	is_valid_argument(int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
-		if ((ft_atol(argv[i]) == 0 || ft_atol(argv[i]) == -1) && ft_strlen(argv[i]) > 2)
+		if (!is_number(argv[i]))
+			return (false);
+		num = ft_atol(argv[i]);
+		if ((num == 0 || num == -1) && ft_strlen(argv[i]) > 2)
+			return (false);
+		if (num <= 0 || num > INT_MAX)
 			return (false);
 		i++;
 	}
