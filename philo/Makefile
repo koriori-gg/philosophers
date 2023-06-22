@@ -11,6 +11,7 @@ SRCS = \
 	init.c\
 	action.c \
 	time.c \
+	print_message.c \
 	simulation.c \
 	ft_pthread.c \
 	bool_handlers.c \

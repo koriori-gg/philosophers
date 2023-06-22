@@ -21,7 +21,7 @@ static long	set_wait_time(t_simulation *simulation, int id)
 		return (simulation->time_to_eat * 3 / 2);
 }
 
-static void init_philo(t_simulation *simulation)
+static void	init_philo(t_simulation *simulation)
 {
 	int	i;
 
@@ -53,7 +53,8 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation)
 	pthread_mutex_init(&(simulation->mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
-	simulation->philo = (t_philo *)malloc(sizeof(t_philo) * simulation->num_philo);
+	simulation->philo = (t_philo *)malloc
+		(sizeof(t_philo) * simulation->num_philo);
 	if (!simulation->philo)
 		exit(1);
 	init_philo(simulation);

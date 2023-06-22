@@ -1,5 +1,22 @@
 #include "philo.h"
 
+void	*philo_life_cycle(void *arg)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)arg;
+	wait_start_time(philo->simulation->start);
+	wait_time(philo->simulation->start, philo->wait_time);
+	while (!is_dead(philo))
+	{
+		philo_take_fork(philo);
+		philo_eat(philo);
+		philo_sleep(philo);
+		philo_think(philo);
+	}
+	return (NULL);
+}
+
 void	monitor(t_simulation *simulation)
 {
 	long	i;
@@ -10,7 +27,6 @@ void	monitor(t_simulation *simulation)
 	while (1)
 	{
 		now = get_time();
-			//mutex 必要かも
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
 			simulation->philo[i].state = DIED;
@@ -31,9 +47,10 @@ void	start_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		ft_pthread_create(&simulation->philo[i].thread, philo_actions, &(simulation->philo[i]));
+		ft_pthread_create(&simulation->philo[i].thread,
+			philo_life_cycle, &(simulation->philo[i]));
 		i++;
-    }
+	}
 	monitor(simulation);
 }
 

@@ -19,14 +19,14 @@ enum e_state {
 };
 
 typedef struct s_philo {
-	long			id;
-	long			eat_count;
-	long			last_eat_time;
-	long			wait_time;
-	int				state;
-	pthread_t		thread;
-	pthread_mutex_t	l_fork;
-	pthread_mutex_t	*r_fork;
+	long				id;
+	long				eat_count;
+	long				last_eat_time;
+	long				wait_time;
+	int					state;
+	pthread_t			thread;
+	pthread_mutex_t		l_fork;
+	pthread_mutex_t		*r_fork;
 	struct s_simulation	*simulation;
 }	t_philo;
 
@@ -39,7 +39,7 @@ typedef struct s_simulation {
 	long			start;
 	bool			stop;
 	pthread_mutex_t	mutex;
-	t_philo	*philo;
+	t_philo			*philo;
 }	t_simulation;
 
 //init
@@ -48,8 +48,13 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation);
 void	start_simulation(t_simulation *simulation);
 void	stop_simulation(t_simulation *simulation);
 void	monitor(t_simulation *simulation);
+void	*philo_life_cycle(void *arg);
 //action
-void	*philo_actions(void *arg);
+void	philo_take_fork(t_philo *philo);
+void	philo_eat(t_philo *philo);
+void	philo_sleep(t_philo *philo);
+void	philo_think(t_philo *philo);
+//print_message
 bool	print_message(t_philo *philo, long time);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);

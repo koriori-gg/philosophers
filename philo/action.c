@@ -1,65 +1,30 @@
 #include "philo.h"
 
-bool	print_message(t_philo *philo, long now)
+void	pick_up_fork(t_philo *philo,
+	pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 {
-	long	time;
-
-	ft_pthread_mutex_lock(&(philo->simulation->mutex));
-	if (philo->simulation->stop)
+	ft_pthread_mutex_lock(fork_a);
+	if (!print_message(philo, get_time()))
 	{
-		ft_pthread_mutex_unlock(&(philo->simulation->mutex));
-		return (false);
+		ft_pthread_mutex_unlock(fork_a);
+		return ;
 	}
-	time = now - philo->simulation->start;
-	if (philo->state == WAIT)
-		printf("%ld %ld has taken a fork\n", time, philo->id);
-	if (philo->state == EAT)
-		printf("%ld %ld is eating\n", time, philo->id);
-	if (philo->state == SLEEP)
-		printf("%ld %ld is sleeping\n", time, philo->id);
-	if (philo->state == THINK)
-		printf("%ld %ld is thinking\n", time, philo->id);
-	if (philo->state == DIED)
-		printf("%ld %ld died\n", time, philo->id);
-	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
-	return (true);
+	ft_pthread_mutex_lock(fork_b);
+	if (!print_message(philo, get_time()))
+	{
+		ft_pthread_mutex_unlock(fork_a);
+		ft_pthread_mutex_unlock(fork_b);
+		return ;
+	}
 }
 
 void	philo_take_fork(t_philo *philo)
 {
 	philo->state = WAIT;
 	if (philo->id % 2 == 0)
-	{
-		ft_pthread_mutex_lock(&(philo->l_fork));
-		if (!print_message(philo, get_time()))
-		{
-			ft_pthread_mutex_unlock(&(philo->l_fork));
-			return ;
-		}
-		ft_pthread_mutex_lock(philo->r_fork);
-		if (!print_message(philo, get_time()))
-		{
-			ft_pthread_mutex_unlock(&(philo->l_fork));
-			ft_pthread_mutex_unlock(philo->r_fork);
-			return ;
-		}
-	}
+		pick_up_fork(philo, &(philo->l_fork), philo->r_fork);
 	else
-	{
-		ft_pthread_mutex_lock(philo->r_fork);
-		if (!print_message(philo, get_time()))
-		{
-			ft_pthread_mutex_unlock(&(philo->l_fork));
-			return ;
-		}
-		ft_pthread_mutex_lock(&(philo->l_fork));
-		if (!print_message(philo, get_time()))
-		{
-			ft_pthread_mutex_unlock(philo->r_fork);
-			ft_pthread_mutex_unlock(&(philo->l_fork));
-			return ;
-		}
-	}
+		pick_up_fork(philo, philo->r_fork, &(philo->l_fork));
 }
 
 void	philo_eat(t_philo *philo)
@@ -79,7 +44,7 @@ void	philo_eat(t_philo *philo)
 
 void	philo_sleep(t_philo *philo)
 {
-	long now;
+	long	now;
 
 	if (philo->state != EAT)
 		return ;
@@ -97,21 +62,4 @@ void	philo_think(t_philo *philo)
 	philo->state = THINK;
 	if (!print_message(philo, get_time()))
 		return ;
-}
-
-void	*philo_actions(void *arg)
-{
-	t_philo	*philo;
-
-	philo = (t_philo *)arg;
-	wait_start_time(philo->simulation->start);
-	wait_time(philo->simulation->start, philo->wait_time);
-	while (!is_dead(philo))
-	{
-		philo_take_fork(philo);
-		philo_eat(philo);
-		philo_sleep(philo);
-		philo_think(philo);
-	}
-	return (NULL);
 }
