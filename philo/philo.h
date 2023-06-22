@@ -11,7 +11,7 @@
 # include <sys/time.h>
 
 enum e_state {
-	TAKE_A_FORK,
+	WAIT,
 	EAT,
 	SLEEP,
 	THINK,

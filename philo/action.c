@@ -11,7 +11,7 @@ bool	print_message(t_philo *philo, long now)
 		return (false);
 	}
 	time = now - philo->simulation->start;
-	if (philo->state == TAKE_A_FORK)
+	if (philo->state == WAIT)
 		printf("%ld %ld has taken a fork\n", time, philo->id);
 	if (philo->state == EAT)
 		printf("%ld %ld is eating\n", time, philo->id);
@@ -25,9 +25,9 @@ bool	print_message(t_philo *philo, long now)
 	return (true);
 }
 
-void	philo_take_a_fork(t_philo *philo)
+void	philo_take_fork(t_philo *philo)
 {
-	philo->state = TAKE_A_FORK;
+	philo->state = WAIT;
 	if (philo->id % 2 == 0)
 	{
 		ft_pthread_mutex_lock(&(philo->l_fork));
@@ -81,6 +81,8 @@ void	philo_sleep(t_philo *philo)
 {
 	long now;
 
+	if (philo->state != EAT)
+		return ;
 	philo->state = SLEEP;
 	now = get_time();
 	if (!print_message(philo, now))
@@ -107,7 +109,7 @@ void	*philo_actions(void *arg)
 		wait_time(philo->simulation->start, philo->simulation->time_to_eat / 2);
 	while (!is_dead(philo))
 	{
-		philo_take_a_fork(philo);
+		philo_take_fork(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
 		philo_think(philo);
