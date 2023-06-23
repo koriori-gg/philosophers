@@ -12,6 +12,7 @@
 
 enum e_state {
 	WAIT,
+	READY,
 	EAT,
 	SLEEP,
 	THINK,

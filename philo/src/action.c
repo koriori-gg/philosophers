@@ -16,6 +16,7 @@ void	pick_up_fork(t_philo *philo,
 		ft_pthread_mutex_unlock(fork_b);
 		return ;
 	}
+	philo->state = READY;
 }
 
 void	philo_take_fork(t_philo *philo)
@@ -29,6 +30,8 @@ void	philo_take_fork(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
+	if (philo->state != READY)
+		return ;
 	philo->state = EAT;
 	philo->last_eat_time = get_time();
 	if (!print_message(philo, philo->last_eat_time))
