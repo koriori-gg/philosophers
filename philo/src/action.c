@@ -66,9 +66,14 @@ void	philo_sleep(t_philo *philo)
 
 void	philo_think(t_philo *philo)
 {
+	long	now;
+
+	now = get_time();
 	if (philo->state == THINK)
 		return ;
 	philo->state = THINK;
-	if (!print_message(philo, get_time()))
+	if (!print_message(philo, now))
 		return ;
+	if (philo->id == 1 && philo->simulation->num_philo == 1)
+		wait_time(now, philo->simulation->time_to_die * 2);
 }
