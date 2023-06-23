@@ -2,20 +2,23 @@ NAME = philo
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread -I inc
 
 RM = rm -f
 
 SRCS = \
-	main.c \
-	init.c\
-	action.c \
-	time.c \
-	simulation.c \
-	bool_handlers.c \
-	ft_strlen.c \
-	ft_atol.c \
-	ft_isdigit.c \
+	src/main.c \
+	src/init.c\
+	src/action.c \
+	src/time.c \
+	src/print_message.c \
+	src/simulation.c \
+	src/ft_pthread.c \
+	src/bool_handlers.c \
+	src/is_number.c \
+	src/ft_strlen.c \
+	src/ft_atol.c \
+	src/ft_isdigit.c \
 
 OBJS = $(SRCS:.c=.o)
 
