@@ -31,7 +31,6 @@ void	monitor(t_simulation *simulation)
 		{
 			simulation->philo[i].state = DIED;
 			print_message(&(simulation->philo[i]), now);
-			simulation->stop = true;
 			break ;
 		}
 		i++;
