@@ -2,7 +2,11 @@ NAME = philo
 
 CC = cc
 
+ifeq ($(shell uname), Darwin)
+CFLAGS = -Wall -Wextra -Werror -I inc
+else
 CFLAGS = -Wall -Wextra -Werror -pthread -I inc
+endif
 
 RM = rm -f
 
