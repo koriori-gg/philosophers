@@ -19,12 +19,9 @@ void	wait_start_time(long start)
 
 void	wait_time(long now, long time)
 {
-	long	real_time;
-
-	real_time = time * 2 / 3;
 	while (1)
 	{
-		if (get_time() >= now + real_time)
+		if (get_time() >= now + time)
 			return ;
 	}
 }
