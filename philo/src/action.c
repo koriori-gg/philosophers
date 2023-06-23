@@ -9,6 +9,11 @@ void	pick_up_fork(t_philo *philo,
 		ft_pthread_mutex_unlock(fork_a);
 		return ;
 	}
+	if (philo->id == 1 && philo->simulation->num_philo == 1)
+	{
+		ft_pthread_mutex_unlock(fork_a);
+		return ;
+	}
 	ft_pthread_mutex_lock(fork_b);
 	if (!print_message(philo, get_time()))
 	{
@@ -41,6 +46,7 @@ void	philo_eat(t_philo *philo)
 		return ;
 	}
 	wait_time(philo->last_eat_time, philo->simulation->time_to_eat);
+	philo->eat_count += 1;
 	ft_pthread_mutex_unlock(&(philo->l_fork));
 	ft_pthread_mutex_unlock(philo->r_fork);
 }

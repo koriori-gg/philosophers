@@ -60,6 +60,7 @@ bool	print_message(t_philo *philo, long time);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
 bool	is_dead(t_philo *philo);
+bool	has_finished_eat(t_philo *philo);
 //time
 long	get_time(void);
 void	wait_start_time(long start);

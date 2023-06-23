@@ -7,7 +7,7 @@ void	*philo_life_cycle(void *arg)
 	philo = (t_philo *)arg;
 	wait_start_time(philo->simulation->start);
 	wait_time(philo->simulation->start, philo->wait_time);
-	while (!is_dead(philo))
+	while (!is_dead(philo) && !has_finished_eat(philo))
 	{
 		philo_take_fork(philo);
 		philo_eat(philo);
