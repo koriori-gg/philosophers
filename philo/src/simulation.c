@@ -64,5 +64,6 @@ void	stop_simulation(t_simulation *simulation)
 		ft_pthread_join(simulation->philo[i].thread);
 		i++;
 	}
+	free(simulation->philo);
 	ft_pthread_mutex_destroy(&simulation->mutex);
 }
