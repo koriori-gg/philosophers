@@ -12,10 +12,11 @@ void	ft_pthread_mutex_unlock(pthread_mutex_t *mtx)
 		exit(1);
 }
 
-void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx)
+int	ft_pthread_mutex_destroy(pthread_mutex_t *mtx)
 {
 	if (pthread_mutex_destroy(mtx) != 0)
-		exit(1);
+		return (-1);
+	return (0);
 }
 
 int	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i, int i)

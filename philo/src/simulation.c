@@ -54,10 +54,13 @@ int	start_simulation(t_simulation *simulation)
 	return (0);
 }
 
-void	stop_simulation(t_simulation *simulation, int count)
+int	stop_simulation(t_simulation *simulation, int count)
 {
-	ft_pthread_mutex_destroy(&simulation->mutex);
+	if (ft_pthread_mutex_destroy(&simulation->mutex) == -1)
+		return (1);
 	free_philo(simulation, count);
-	free_fork(simulation, count);
+	if (free_fork(simulation, count) == -1)
+		return (1);
 	free(simulation->philo);
+	return (0);
 }

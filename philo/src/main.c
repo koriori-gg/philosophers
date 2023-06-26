@@ -10,6 +10,7 @@ int	main(int argc, char **argv)
 		return (1);
 	if (start_simulation(&simulation) == -1)
 		return (1);
-	stop_simulation(&simulation, simulation.num_philo);
+	if (stop_simulation(&simulation, simulation.num_philo))
+		return (1);
 	return (0);
 }
