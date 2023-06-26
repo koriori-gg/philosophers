@@ -46,7 +46,7 @@ int	start_simulation(t_simulation *simulation)
 	while (i < simulation->num_philo)
 	{
 		if(ft_pthread_create(&simulation->philo[i].thread,
-			philo_life_cycle, &(simulation->philo[i]), i) == -1)
+			philo_life_cycle, &(simulation->philo[i]), i) != 0)
 				return (-1);
 		i++;
 	}
@@ -56,12 +56,12 @@ int	start_simulation(t_simulation *simulation)
 
 int	stop_simulation(t_simulation *simulation, int count)
 {
-	if (pthread_mutex_destroy(&simulation->mutex) == -1)
-		return (1);
-	if (free_philo(simulation, count) == -1)
-		return (1);
-	if (free_fork(simulation, count) == -1)
-		return (1);
+	if (pthread_mutex_destroy(&simulation->mutex) != 0)
+		return (-1);
+	if (free_philo(simulation, count) != 0)
+		return (-1);
+	if (free_fork(simulation, count) != 0)
+		return (-1);
 	free(simulation->philo);
 	return (0);
 }
