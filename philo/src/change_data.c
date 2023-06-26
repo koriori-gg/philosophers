@@ -17,9 +17,10 @@ void	add_eat_count(t_philo *philo)
 	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
 }
 
-bool 	update_philo(t_philo *philo, int state, long time)
+bool	update_philo(t_philo *philo, int state, long time)
 {
 	bool	flg;
+
 	ft_pthread_mutex_lock(&(philo->simulation->mutex));
 	change_state(philo, state);
 	flg = print_message(philo, time);

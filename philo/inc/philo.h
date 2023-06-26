@@ -54,7 +54,8 @@ void	*philo_life_cycle(void *arg);
 //fork
 void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
 void	philo_take_fork(t_philo *philo);
-void	pick_up_fork(t_philo *philo, pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
+void	pick_up_fork(t_philo *philo,
+			pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
 //action
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
@@ -68,7 +69,7 @@ bool	has_finished_eat(t_philo *philo);
 //change_data
 void	change_state(t_philo *philo, int state);
 void	add_eat_count(t_philo *philo);
-bool 	update_philo(t_philo *philo, int state, long time);
+bool	update_philo(t_philo *philo, int state, long time);
 //time
 long	get_time(void);
 void	wait_start_time(long start);
