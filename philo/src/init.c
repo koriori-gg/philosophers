@@ -42,7 +42,7 @@ static void	init_philo(t_simulation *simulation)
 	}
 }
 
-void	init_simulation(int argc, char **argv, t_simulation *simulation)
+int	init_simulation(int argc, char **argv, t_simulation *simulation)
 {
 	simulation->num_philo = ft_atol(argv[1]);
 	simulation->time_to_die = ft_atol(argv[2]);
@@ -57,6 +57,7 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->philo = (t_philo *)malloc
 		(sizeof(t_philo) * simulation->num_philo);
 	if (!simulation->philo)
-		exit(1);
+		return (-1);
 	init_philo(simulation);
+	return (0);
 }

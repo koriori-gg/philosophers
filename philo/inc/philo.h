@@ -45,7 +45,7 @@ typedef struct s_simulation {
 }	t_simulation;
 
 //init
-void	init_simulation(int argc, char **argv, t_simulation *simulation);
+int		init_simulation(int argc, char **argv, t_simulation *simulation);
 //simulation
 int		start_simulation(t_simulation *simulation);
 void	stop_simulation(t_simulation *simulation, int count);
