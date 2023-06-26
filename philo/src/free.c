@@ -19,7 +19,7 @@ int	free_fork(t_simulation *simulation, int count)
 	i = 0;
 	while (i < count)
 	{
-		if (ft_pthread_mutex_destroy(&(simulation->philo[i].l_fork)) == -1)
+		if (pthread_mutex_destroy(&(simulation->philo[i].l_fork)) == -1)
 			return (-1);
 		i++;
 	}
