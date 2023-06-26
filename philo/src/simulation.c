@@ -58,7 +58,8 @@ int	stop_simulation(t_simulation *simulation, int count)
 {
 	if (pthread_mutex_destroy(&simulation->mutex) == -1)
 		return (1);
-	free_philo(simulation, count);
+	if (free_philo(simulation, count) == -1)
+		return (1);
 	if (free_fork(simulation, count) == -1)
 		return (1);
 	free(simulation->philo);
