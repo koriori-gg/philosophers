@@ -7,7 +7,8 @@ int	main(int argc, char **argv)
 	if (!is_valid_argument(argc, argv))
 		return (1);
 	init_simulation(argc, argv, &simulation);
-	start_simulation(&simulation);
+	if (start_simulation(&simulation) == -1)
+		return (1);
 	stop_simulation(&simulation, simulation.num_philo);
 	return (0);
 }

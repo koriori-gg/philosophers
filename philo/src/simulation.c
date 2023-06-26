@@ -38,18 +38,20 @@ void	monitor(t_simulation *simulation)
 	}
 }
 
-void	start_simulation(t_simulation *simulation)
+int	start_simulation(t_simulation *simulation)
 {
 	int	i;
 
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		pthread_create(&simulation->philo[i].thread, NULL,
-			philo_life_cycle, &(simulation->philo[i]));
+		if(ft_pthread_create(&simulation->philo[i].thread,
+			philo_life_cycle, &(simulation->philo[i]), i) == -1)
+				return (-1);
 		i++;
 	}
 	monitor(simulation);
+	return (0);
 }
 
 void	stop_simulation(t_simulation *simulation, int count)

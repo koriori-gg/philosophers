@@ -18,10 +18,14 @@ void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx)
 		exit(1);
 }
 
-void	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i)
+int	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i, int i)
 {
 	if (pthread_create(thread, NULL, func, philo_i) != 0)
-		exit(1);
+	{
+		stop_simulation(philo_i->simulation, i);
+		return (-1);
+	}
+	return (0);
 }
 
 void	ft_pthread_join(pthread_t thread)
