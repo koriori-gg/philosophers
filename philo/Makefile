@@ -19,6 +19,8 @@ SRCS = \
 	src/simulation.c \
 	src/ft_pthread.c \
 	src/bool_handlers.c \
+	src/fork.c \
+	src/change_data.c \
 	src/is_number.c \
 	src/ft_strlen.c \
 	src/ft_atol.c \
@@ -41,3 +43,6 @@ fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+debug: $(OBJS)
+	$(CC) $(CFLAGS) -fsanitize=thread -o $(NAME) -L. $(OBJS)

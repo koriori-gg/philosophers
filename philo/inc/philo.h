@@ -12,6 +12,7 @@
 
 enum e_state {
 	WAIT,
+	MIDDLE,
 	READY,
 	EAT,
 	SLEEP,
@@ -50,8 +51,11 @@ void	start_simulation(t_simulation *simulation);
 void	stop_simulation(t_simulation *simulation);
 void	monitor(t_simulation *simulation);
 void	*philo_life_cycle(void *arg);
-//action
+//fork
+void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
 void	philo_take_fork(t_philo *philo);
+void	pick_up_fork(t_philo *philo, pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
+//action
 void	philo_eat(t_philo *philo);
 void	philo_sleep(t_philo *philo);
 void	philo_think(t_philo *philo);
@@ -61,6 +65,10 @@ bool	print_message(t_philo *philo, long time);
 bool	is_valid_argument(int argc, char **argv);
 bool	is_dead(t_philo *philo);
 bool	has_finished_eat(t_philo *philo);
+//change_data
+void	change_state(t_philo *philo, int state);
+void	add_eat_count(t_philo *philo);
+bool 	update_philo(t_philo *philo, int state, long time);
 //time
 long	get_time(void);
 void	wait_start_time(long start);

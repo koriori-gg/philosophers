@@ -48,7 +48,7 @@ void	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->time_to_die = ft_atol(argv[2]);
 	simulation->time_to_eat = ft_atol(argv[3]);
 	simulation->time_to_sleep = ft_atol(argv[4]);
-	simulation->start = get_time() + 1000;
+	simulation->start = get_time() + 2000;
 	simulation->stop = false;
 	simulation->must_eat = -1;
 	pthread_mutex_init(&(simulation->mutex), NULL);

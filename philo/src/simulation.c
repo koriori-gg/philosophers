@@ -29,8 +29,7 @@ void	monitor(t_simulation *simulation)
 		now = get_time();
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
-			simulation->philo[i].state = DIED;
-			print_message(&(simulation->philo[i]), now);
+			update_philo(&(simulation->philo[i]), DIED, now);
 			break ;
 		}
 		i++;
@@ -46,7 +45,7 @@ void	start_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		ft_pthread_create(&simulation->philo[i].thread,
+		pthread_create(&simulation->philo[i].thread, NULL,
 			philo_life_cycle, &(simulation->philo[i]));
 		i++;
 	}
@@ -57,6 +56,7 @@ void	stop_simulation(t_simulation *simulation)
 {
 	int	i;
 
+	ft_pthread_mutex_destroy(&simulation->mutex);
 	i = 0;
 	while (i < simulation->num_philo)
 	{
@@ -65,5 +65,4 @@ void	stop_simulation(t_simulation *simulation)
 		i++;
 	}
 	free(simulation->philo);
-	ft_pthread_mutex_destroy(&simulation->mutex);
 }

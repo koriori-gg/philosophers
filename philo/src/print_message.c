@@ -4,14 +4,13 @@ bool	print_message(t_philo *philo, long now)
 {
 	long	time;
 
-	ft_pthread_mutex_lock(&(philo->simulation->mutex));
 	if (philo->simulation->stop)
-	{
-		ft_pthread_mutex_unlock(&(philo->simulation->mutex));
 		return (false);
-	}
-	time = now - philo->simulation->start;
-	if (philo->state == WAIT)
+	if (philo->state == EAT)
+		time = philo->last_eat_time - philo->simulation->start;
+	else
+		time = now - philo->simulation->start;
+	if (philo->state == WAIT || philo->state == READY)
 		printf("%ld %ld has taken a fork\n", time, philo->id);
 	if (philo->state == EAT)
 		printf("%ld %ld is eating\n", time, philo->id);
@@ -24,6 +23,5 @@ bool	print_message(t_philo *philo, long now)
 		printf("%ld %ld died\n", time, philo->id);
 		philo->simulation->stop = true;
 	}
-	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
 	return (true);
 }
