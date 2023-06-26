@@ -80,8 +80,6 @@ long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 bool	is_number(char *str);
 //pthread
-void	ft_pthread_mutex_lock(pthread_mutex_t *mtx);
-void	ft_pthread_mutex_unlock(pthread_mutex_t *mtx);
 int		ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i, int i);
 //free
 int		free_philo(t_simulation *simulation, int count);

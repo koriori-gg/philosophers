@@ -3,18 +3,18 @@
 void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 {
 	if (fork_b == NULL)
-		ft_pthread_mutex_unlock(fork_a);
+		pthread_mutex_unlock(fork_a);
 	else
 	{
-		ft_pthread_mutex_unlock(fork_a);
-		ft_pthread_mutex_unlock(fork_b);
+		pthread_mutex_unlock(fork_a);
+		pthread_mutex_unlock(fork_b);
 	}
 }
 
 void	pick_up_fork(t_philo *philo,
 	pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 {
-	ft_pthread_mutex_lock(fork_a);
+	pthread_mutex_lock(fork_a);
 	if (!update_philo(philo, MIDDLE, get_time()))
 	{
 		put_down_fork(fork_a, NULL);
@@ -25,7 +25,7 @@ void	pick_up_fork(t_philo *philo,
 		put_down_fork(fork_a, NULL);
 		return ;
 	}
-	ft_pthread_mutex_lock(fork_b);
+	pthread_mutex_lock(fork_b);
 	if (!update_philo(philo, READY, get_time()))
 	{
 		put_down_fork(fork_a, fork_b);

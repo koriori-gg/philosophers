@@ -49,8 +49,8 @@ bool	has_finished_eat(t_philo *philo)
 			return (false);
 		i++;
 	}
-	ft_pthread_mutex_lock(&(simulation->mutex));
+	pthread_mutex_lock(&(simulation->mutex));
 	simulation->stop = true;
-	ft_pthread_mutex_unlock(&(simulation->mutex));
+	pthread_mutex_unlock(&(simulation->mutex));
 	return (true);
 }
