@@ -24,8 +24,6 @@ bool	update_philo(t_philo *philo, int state, long time)
 	ft_pthread_mutex_lock(&(philo->simulation->mutex));
 	change_state(philo, state);
 	flg = print_message(philo, time);
-	if (flg)
-		change_state(philo, state);
 	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
 	return (flg);
 }
