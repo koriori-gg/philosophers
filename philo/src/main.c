@@ -8,6 +8,6 @@ int	main(int argc, char **argv)
 		return (1);
 	init_simulation(argc, argv, &simulation);
 	start_simulation(&simulation);
-	stop_simulation(&simulation);
+	stop_simulation(&simulation, simulation.num_philo);
 	return (0);
 }

@@ -52,17 +52,10 @@ void	start_simulation(t_simulation *simulation)
 	monitor(simulation);
 }
 
-void	stop_simulation(t_simulation *simulation)
+void	stop_simulation(t_simulation *simulation, int count)
 {
-	int	i;
-
 	ft_pthread_mutex_destroy(&simulation->mutex);
-	i = 0;
-	while (i < simulation->num_philo)
-	{
-		ft_pthread_mutex_destroy(&(simulation->philo[i].l_fork));
-		ft_pthread_join(simulation->philo[i].thread);
-		i++;
-	}
+	free_philo(simulation, count);
+	free_fork(simulation, count);
 	free(simulation->philo);
 }

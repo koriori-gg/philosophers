@@ -48,7 +48,7 @@ typedef struct s_simulation {
 void	init_simulation(int argc, char **argv, t_simulation *simulation);
 //simulation
 void	start_simulation(t_simulation *simulation);
-void	stop_simulation(t_simulation *simulation);
+void	stop_simulation(t_simulation *simulation, int count);
 void	monitor(t_simulation *simulation);
 void	*philo_life_cycle(void *arg);
 //fork
@@ -85,4 +85,7 @@ void	ft_pthread_mutex_unlock(pthread_mutex_t *mtx);
 void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx);
 void	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i);
 void	ft_pthread_join(pthread_t thread);
+//free
+void	free_philo(t_simulation *simulation, int count);
+void	free_fork(t_simulation *simulation, int count);
 #endif
