@@ -45,5 +45,6 @@ fclean: clean
 
 re: fclean all
 
-debug: $(OBJS)
-	$(CC) $(CFLAGS) -fsanitize=thread -o $(NAME) -L. $(OBJS)
+debug: CFLAGS += -fsanitize=thread
+
+debug: re
