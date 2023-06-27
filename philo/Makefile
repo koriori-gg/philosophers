@@ -48,3 +48,5 @@ re: fclean all
 debug: CFLAGS += -fsanitize=thread
 
 debug: re
+
+.PHONY: all clean fclean re debug
