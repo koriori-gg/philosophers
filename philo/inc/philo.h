@@ -73,7 +73,7 @@ bool	update_philo(t_philo *philo, int state, long time);
 //time
 long	get_time(void);
 void	wait_start_time(long start);
-void	wait_time(long now, long time);
+void	wait_time(long start, long time);
 //libft
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);

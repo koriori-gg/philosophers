@@ -10,18 +10,29 @@ long	get_time(void)
 
 void	wait_start_time(long start)
 {
-	while (1)
+	useconds_t	remain;
+	long		now;
+
+	now = get_time();
+	remain = (useconds_t)(start - now);
+	while (remain > 0)
 	{
-		if (get_time() >= start)
-			break ;
+		usleep(remain / 2);
+		now = get_time();
+		remain = (useconds_t)(start - now);
 	}
 }
 
-void	wait_time(long now, long time)
+void	wait_time(long start, long time)
 {
-	while (1)
+	useconds_t	remain;
+	long		now;
+
+	remain = (useconds_t)time;
+	while (remain > 0)
 	{
-		if (get_time() >= now + time)
-			return ;
+		usleep(remain / 2);
+		now = get_time();
+		remain = (useconds_t)(start + time - now);
 	}
 }
