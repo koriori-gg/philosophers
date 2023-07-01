@@ -4,12 +4,10 @@ bool	print_message(t_philo *philo, long now)
 {
 	long	time;
 
-	if (philo->simulation->stop)
+	if (is_dead(philo))
 		return (false);
-	if (philo->state == EAT)
-		time = philo->last_eat_time - philo->simulation->start;
-	else
-		time = now - philo->simulation->start;
+	time = now - philo->simulation->start;
+	pthread_mutex_lock(&(philo->simulation->print_mutex));
 	if (philo->state == WAIT || philo->state == READY)
 		printf("%ld %ld has taken a fork\n", time, philo->id);
 	if (philo->state == EAT)
@@ -19,9 +17,8 @@ bool	print_message(t_philo *philo, long now)
 	if (philo->state == THINK)
 		printf("%ld %ld is thinking\n", time, philo->id);
 	if (philo->state == DIED)
-	{
 		printf("%ld %ld died\n", time, philo->id);
-		philo->simulation->stop = true;
-	}
+	pthread_mutex_unlock(&(philo->simulation->print_mutex));
+	update_stop(philo);
 	return (true);
 }

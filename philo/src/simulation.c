@@ -29,7 +29,8 @@ void	monitor(t_simulation *simulation)
 		now = get_time();
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
-			update_philo(&(simulation->philo[i]), DIED, now);
+			change_state(&(simulation->philo[i]), DIED);
+			print_message(&(simulation->philo[i]), now);
 			break ;
 		}
 		i++;
@@ -56,8 +57,8 @@ int	start_simulation(t_simulation *simulation)
 
 int	stop_simulation(t_simulation *simulation, int count)
 {
-	if (pthread_mutex_destroy(&simulation->mutex) != 0)
-		return (-1);
+	// if (pthread_mutex_destroy(&simulation->mutex) != 0)//TODO: change ->all mutex
+		// return (-1);
 	if (free_fork(simulation, count) != 0)
 		return (-1);
 	if (free_philo(simulation, count) != 0)
