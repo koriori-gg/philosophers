@@ -31,7 +31,8 @@ static void	init_philo(t_simulation *simulation)
 		simulation->philo[i].id = i + 1;
 		simulation->philo[i].eat_count = 0;
 		simulation->philo[i].last_eat_time = simulation->start;
-		simulation->philo[i].wait_time = set_wait_time(simulation, i + 1);
+		// simulation->philo[i].wait_time = set_wait_time(simulation, i + 1);
+		simulation->philo[i].next_eat_time = simulation->start + set_wait_time(simulation, i + 1);
 		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);
 		if (i > 0)
 			simulation->philo[i].r_fork = &(simulation->philo[i - 1].l_fork);
@@ -57,6 +58,7 @@ int	init_simulation(int argc, char **argv, t_simulation *simulation)
 	pthread_mutex_init(&(simulation->state_mutex), NULL);
 	pthread_mutex_init(&(simulation->stop_mutex), NULL);
 	pthread_mutex_init(&(simulation->last_eat_mutex), NULL);
+	pthread_mutex_init(&(simulation->next_eat_mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
 	simulation->philo = (t_philo *)malloc

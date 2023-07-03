@@ -21,6 +21,7 @@ SRCS = \
 	src/bool_handlers.c \
 	src/fork.c \
 	src/change_data.c \
+	src/calculate_time.c \
 	src/free.c \
 	src/is_number.c \
 	src/ft_strlen.c \

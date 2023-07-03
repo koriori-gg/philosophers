@@ -6,13 +6,12 @@ void	*philo_life_cycle(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_start_time(philo->simulation->start);
-	wait_time(philo->simulation->start, philo->wait_time);
 	while (!is_dead(philo) && !has_finished_eat(philo))
 	{
+		philo_think(philo);
 		philo_take_fork(philo);
 		philo_eat(philo);
 		philo_sleep(philo);
-		philo_think(philo);
 	}
 	return (NULL);
 }
@@ -57,8 +56,13 @@ int	start_simulation(t_simulation *simulation)
 
 int	stop_simulation(t_simulation *simulation, int count)
 {
-	// if (pthread_mutex_destroy(&simulation->mutex) != 0)//TODO: change ->all mutex
-		// return (-1);
+	pthread_mutex_destroy(&simulation->eat_count_mutex);
+	pthread_mutex_destroy(&simulation->dead_mutex);
+	pthread_mutex_destroy(&simulation->print_mutex);
+	pthread_mutex_destroy(&simulation->state_mutex);
+	pthread_mutex_destroy(&simulation->stop_mutex);
+	pthread_mutex_destroy(&simulation->last_eat_mutex);
+	pthread_mutex_destroy(&simulation->next_eat_mutex);
 	if (free_fork(simulation, count) != 0)
 		return (-1);
 	if (free_philo(simulation, count) != 0)

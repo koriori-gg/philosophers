@@ -24,7 +24,7 @@ typedef struct s_philo {
 	long				id;
 	long				eat_count;
 	long				last_eat_time;
-	long				wait_time;
+	// long				wait_time;
 	long				next_eat_time;
 	int					state;
 	pthread_t			thread;
@@ -47,6 +47,7 @@ typedef struct s_simulation {
 	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	last_eat_mutex;
+	pthread_mutex_t	next_eat_mutex;
 	t_philo			*philo;
 }	t_simulation;
 
@@ -77,6 +78,9 @@ void	change_state(t_philo *philo, int state);
 void	add_eat_count(t_philo *philo);
 void	update_last_eat_time(t_philo *philo);
 void	update_stop(t_philo *philo);
+void	set_next_eat_time(t_philo *philo);
+//cal
+long	calculate_next_eat_in_odd(t_philo *philo);
 //time
 long	get_time(void);
 void	wait_start_time(long start);
