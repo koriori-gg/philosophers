@@ -29,14 +29,14 @@ bool	is_valid_argument(int argc, char **argv)
 
 bool	should_stop(t_philo *philo)
 {
+	bool	flg;
+
+	flg = false;
 	pthread_mutex_lock(&(philo->simulation->stop_mutex));
 	if (philo->simulation->stop)
-	{
-		pthread_mutex_unlock(&(philo->simulation->stop_mutex));
-		return (true);
-	}
+		flg = true;
 	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
-	return (false);
+	return (flg);
 }
 
 bool	has_finished_eat(t_simulation *simulation)
