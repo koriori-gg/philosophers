@@ -41,7 +41,7 @@ bool	should_stop(t_philo *philo)
 
 bool	has_finished_eat(t_simulation *simulation)
 {
-	int				i;
+	int	i;
 
 	if (simulation->must_eat == -1)
 		return (false);
