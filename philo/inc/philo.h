@@ -42,7 +42,6 @@ typedef struct s_simulation {
 	long			start;
 	bool			stop;
 	pthread_mutex_t	eat_count_mutex;
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	last_eat_mutex;

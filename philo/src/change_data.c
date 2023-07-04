@@ -23,8 +23,6 @@ void	update_last_eat_time(t_philo *philo, long now)
 
 void	update_stop(t_philo *philo)
 {
-	if (!is_same_state(philo, DIED))
-		return ;
 	pthread_mutex_lock(&(philo->simulation->stop_mutex));
 	philo->simulation->stop = true;
 	pthread_mutex_unlock(&(philo->simulation->stop_mutex));

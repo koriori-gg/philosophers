@@ -34,6 +34,7 @@ void	monitor(t_simulation *simulation)
 			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			change_state(&(simulation->philo[i]), DIED);
 			print_message(&(simulation->philo[i]), now);
+			update_stop(&(simulation->philo[i]));
 			break ;
 		}
 		pthread_mutex_unlock(&(simulation->last_eat_mutex));
@@ -62,7 +63,6 @@ int	start_simulation(t_simulation *simulation)
 int	stop_simulation(t_simulation *simulation, int count)
 {
 	pthread_mutex_destroy(&simulation->eat_count_mutex);
-	pthread_mutex_destroy(&simulation->print_mutex);
 	pthread_mutex_destroy(&simulation->state_mutex);
 	pthread_mutex_destroy(&simulation->stop_mutex);
 	pthread_mutex_destroy(&simulation->last_eat_mutex);
