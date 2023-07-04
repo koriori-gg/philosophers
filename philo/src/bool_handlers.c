@@ -27,18 +27,6 @@ bool	is_valid_argument(int argc, char **argv)
 	return (true);
 }
 
-bool	is_dead(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->simulation->stop_mutex));
-	if (philo->simulation->stop)
-	{
-		pthread_mutex_unlock(&(philo->simulation->stop_mutex));
-		return (true);
-	}
-	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
-	return (false);
-}
-
 bool	should_stop(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->simulation->stop_mutex));
@@ -50,33 +38,6 @@ bool	should_stop(t_philo *philo)
 	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 	return (false);
 }
-
-// bool	has_finished_eat(t_philo *philo)
-// {
-// 	t_simulation	*simulation;
-// 	int				i;
-
-// 	simulation = philo->simulation;
-// 	if (simulation->must_eat == -1)
-// 		return (false);
-// 	i = 0;
-// 	pthread_mutex_lock(&(simulation->eat_count_mutex));
-// 	while (i < simulation->num_philo)
-// 	{
-// 		if (simulation->philo[i].eat_count < simulation->must_eat)
-// 		{
-// 			pthread_mutex_unlock(&(simulation->eat_count_mutex));
-// 			return (false);
-// 		}
-// 		i++;
-// 	}
-// 	pthread_mutex_unlock(&(simulation->eat_count_mutex));
-// 	pthread_mutex_lock(&(simulation->stop_mutex));
-// 	simulation->stop = true;
-// 	pthread_mutex_unlock(&(simulation->stop_mutex));
-// 	return (true);
-// }
-
 
 bool	has_finished_eat(t_simulation *simulation)
 {

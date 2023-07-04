@@ -69,9 +69,7 @@ void	philo_think(t_philo *philo);
 bool	print_message(t_philo *philo, long time);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
-// bool	is_dead(t_philo *philo);
 bool	should_stop(t_philo *philo);
-// bool	has_finished_eat(t_philo *philo);
 bool	has_finished_eat(t_simulation *simulation);
 bool	is_same_state(t_philo *philo, int state);
 //change_data
