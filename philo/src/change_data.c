@@ -14,25 +14,24 @@ void	add_eat_count(t_philo *philo)
 	pthread_mutex_unlock(&(philo->simulation->eat_count_mutex));
 }
 
-void	update_last_eat_time(t_philo *philo)
+void	update_last_eat_time(t_philo *philo, long now)
 {
 	pthread_mutex_lock(&(philo->simulation->last_eat_mutex));
-	philo->last_eat_time = get_time();
+	philo->last_eat_time = now;
 	pthread_mutex_unlock(&(philo->simulation->last_eat_mutex));
 }
 
 void	update_stop(t_philo *philo)
 {
-	if (philo->state != DIED)
+	if (!is_same_state(philo, DIED))
 		return ;
-	pthread_mutex_lock(&(philo->simulation->dead_mutex));
+	pthread_mutex_lock(&(philo->simulation->stop_mutex));
 	philo->simulation->stop = true;
-	pthread_mutex_unlock(&(philo->simulation->dead_mutex));
+	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 }
 
 void	set_next_eat_time(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->simulation->next_eat_mutex));
 	if (philo->simulation->num_philo % 2 == 0)
 		philo->next_eat_time = get_time() + philo->simulation->time_to_eat;
 	else if (philo->simulation->num_philo == 3)
@@ -41,5 +40,4 @@ void	set_next_eat_time(t_philo *philo)
 		philo->next_eat_time = get_time() + philo->simulation->time_to_eat * 3 / 2;
 	else
 		philo->next_eat_time = get_time() + calculate_next_eat_in_odd(philo);
-	pthread_mutex_unlock(&(philo->simulation->next_eat_mutex));
 }

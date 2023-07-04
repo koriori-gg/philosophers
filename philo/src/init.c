@@ -53,12 +53,10 @@ int	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->stop = false;
 	simulation->must_eat = -1;
 	pthread_mutex_init(&(simulation->eat_count_mutex), NULL);
-	pthread_mutex_init(&(simulation->dead_mutex), NULL);
 	pthread_mutex_init(&(simulation->print_mutex), NULL);
 	pthread_mutex_init(&(simulation->state_mutex), NULL);
 	pthread_mutex_init(&(simulation->stop_mutex), NULL);
 	pthread_mutex_init(&(simulation->last_eat_mutex), NULL);
-	pthread_mutex_init(&(simulation->next_eat_mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
 	simulation->philo = (t_philo *)malloc

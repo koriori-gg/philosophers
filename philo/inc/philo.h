@@ -42,12 +42,10 @@ typedef struct s_simulation {
 	long			start;
 	bool			stop;
 	pthread_mutex_t	eat_count_mutex;
-	pthread_mutex_t	dead_mutex;
 	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	stop_mutex;
 	pthread_mutex_t	last_eat_mutex;
-	pthread_mutex_t	next_eat_mutex;
 	t_philo			*philo;
 }	t_simulation;
 
@@ -71,12 +69,15 @@ void	philo_think(t_philo *philo);
 bool	print_message(t_philo *philo, long time);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
-bool	is_dead(t_philo *philo);
-bool	has_finished_eat(t_philo *philo);
+// bool	is_dead(t_philo *philo);
+bool	should_stop(t_philo *philo);
+// bool	has_finished_eat(t_philo *philo);
+bool	has_finished_eat(t_simulation *simulation);
+bool	is_same_state(t_philo *philo, int state);
 //change_data
 void	change_state(t_philo *philo, int state);
 void	add_eat_count(t_philo *philo);
-void	update_last_eat_time(t_philo *philo);
+void	update_last_eat_time(t_philo *philo, long now);
 void	update_stop(t_philo *philo);
 void	set_next_eat_time(t_philo *philo);
 //cal

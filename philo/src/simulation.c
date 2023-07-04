@@ -6,7 +6,7 @@ void	*philo_life_cycle(void *arg)
 
 	philo = (t_philo *)arg;
 	wait_start_time(philo->simulation->start);
-	while (!is_dead(philo) && !has_finished_eat(philo))
+	while (!should_stop(philo))
 	{
 		philo_think(philo);
 		philo_take_fork(philo);
@@ -25,13 +25,18 @@ void	monitor(t_simulation *simulation)
 	wait_start_time(simulation->start);
 	while (1)
 	{
+		if (simulation->must_eat != -1 && has_finished_eat(simulation))
+			break ;
 		now = get_time();
+		pthread_mutex_lock(&(simulation->last_eat_mutex));
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
+			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			change_state(&(simulation->philo[i]), DIED);
 			print_message(&(simulation->philo[i]), now);
 			break ;
 		}
+		pthread_mutex_unlock(&(simulation->last_eat_mutex));
 		i++;
 		if (simulation->num_philo == i)
 			i = 0;
@@ -57,12 +62,10 @@ int	start_simulation(t_simulation *simulation)
 int	stop_simulation(t_simulation *simulation, int count)
 {
 	pthread_mutex_destroy(&simulation->eat_count_mutex);
-	pthread_mutex_destroy(&simulation->dead_mutex);
 	pthread_mutex_destroy(&simulation->print_mutex);
 	pthread_mutex_destroy(&simulation->state_mutex);
 	pthread_mutex_destroy(&simulation->stop_mutex);
 	pthread_mutex_destroy(&simulation->last_eat_mutex);
-	pthread_mutex_destroy(&simulation->next_eat_mutex);
 	if (free_fork(simulation, count) != 0)
 		return (-1);
 	if (free_philo(simulation, count) != 0)
