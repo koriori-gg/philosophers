@@ -24,7 +24,6 @@ typedef struct s_philo {
 	long				id;
 	long				eat_count;
 	long				last_eat_time;
-	// long				wait_time;
 	long				next_eat_time;
 	int					state;
 	pthread_t			thread;
