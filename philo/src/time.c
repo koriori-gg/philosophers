@@ -25,14 +25,14 @@ void	wait_start_time(long start)
 
 void	wait_time(long start, long time)
 {
-	useconds_t	remain;
-	long		now;
+	long	remain;
+	long	now;
 
-	remain = (useconds_t)time;
+	remain = time;
 	while (remain > 0)
 	{
-		usleep(remain / 2);
+		usleep((useconds_t)(remain / 2));
 		now = get_time();
-		remain = (useconds_t)(start + time - now);
+		remain = start + time - now;
 	}
 }
