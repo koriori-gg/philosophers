@@ -52,6 +52,7 @@ int	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->start = get_time() + 2000;
 	simulation->stop = false;
 	simulation->must_eat = -1;
+	pthread_mutex_init(&(simulation->print_mutex), NULL);
 	pthread_mutex_init(&(simulation->eat_count_mutex), NULL);
 	pthread_mutex_init(&(simulation->state_mutex), NULL);
 	pthread_mutex_init(&(simulation->stop_mutex), NULL);

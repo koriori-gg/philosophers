@@ -15,7 +15,7 @@ void	pick_up_fork(t_philo *philo,
 	pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 {
 	pthread_mutex_lock(fork_a);
-	if (!print_message(philo, get_time()))
+	if (!print_message(philo, philo->id, get_time(), "has taken a fork"))
 	{
 		put_down_fork(fork_a, NULL);
 		return ;
@@ -27,7 +27,7 @@ void	pick_up_fork(t_philo *philo,
 	}
 	pthread_mutex_lock(fork_b);
 	change_state(philo, READY);
-	if (!print_message(philo, get_time()))
+	if (!print_message(philo, philo->id, get_time(), "has taken a fork"))
 	{
 		put_down_fork(fork_a, fork_b);
 		return ;

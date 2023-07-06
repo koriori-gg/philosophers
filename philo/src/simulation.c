@@ -13,6 +13,7 @@ void	*philo_life_cycle(void *arg)
 		philo_eat(philo);
 		philo_sleep(philo);
 	}
+	put_down_fork(&(philo->l_fork), philo->r_fork);
 	return (NULL);
 }
 
@@ -31,10 +32,10 @@ void	monitor(t_simulation *simulation)
 		pthread_mutex_lock(&(simulation->last_eat_mutex));
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
-			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			change_state(&(simulation->philo[i]), DIED);
-			print_message(&(simulation->philo[i]), now);
+			print_message(&(simulation->philo[i]), simulation->philo[i].id, now, "died");
 			update_stop(&(simulation->philo[i]));
+			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			break ;
 		}
 		pthread_mutex_unlock(&(simulation->last_eat_mutex));
@@ -62,6 +63,7 @@ int	start_simulation(t_simulation *simulation)
 
 int	stop_simulation(t_simulation *simulation, int count)
 {
+	pthread_mutex_destroy(&simulation->print_mutex);
 	pthread_mutex_destroy(&simulation->eat_count_mutex);
 	pthread_mutex_destroy(&simulation->state_mutex);
 	pthread_mutex_destroy(&simulation->stop_mutex);
