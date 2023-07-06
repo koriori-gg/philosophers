@@ -19,7 +19,7 @@ void	print_dead(t_philo *philo,long id, long now, char *message)
 	philo->simulation->stop = true;
 }
 
-int	print_action(t_philo *philo,long id, char *message)
+int	print_action(t_philo *philo, char *message)
 {
 	long	time;
 	int		stop;
@@ -31,7 +31,7 @@ int	print_action(t_philo *philo,long id, char *message)
 	if (should_stop(philo))
 		stop = -1;
 	if (stop == 0)
-		printf("%ld %ld %s\n", time, id, message);
+		printf("%ld %ld %s\n", time, philo->id, message);
 	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 	return (stop);
 }

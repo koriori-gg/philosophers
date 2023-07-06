@@ -60,7 +60,7 @@ int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
 //print_message
-int		print_action(t_philo *philo,long id, char *message);
+int		print_action(t_philo *philo, char *message);
 void	print_dead(t_philo *philo,long id, long now, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);

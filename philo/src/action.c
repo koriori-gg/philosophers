@@ -9,7 +9,7 @@ int	philo_eat(t_philo *philo)
 	{
 		change_state(philo, EAT);
 		pthread_mutex_lock(&(philo->philo_mutex));
-		error = print_action(philo, philo->id,  "is eating");
+		error = print_action(philo, "is eating");
 		update_last_eat_time(philo, philo->now);
 		add_eat_count(philo);
 		pthread_mutex_unlock(&(philo->philo_mutex));
@@ -26,7 +26,7 @@ int	philo_sleep(t_philo *philo)
 	int		error;
 
 	change_state(philo, SLEEP);
-	error = print_action(philo, philo->id, "is sleeping");
+	error = print_action(philo, "is sleeping");
 	if (error == 0)
 		wait_time(philo->now, philo->simulation->time_to_sleep);
 	return (error);
@@ -37,7 +37,7 @@ int	philo_think(t_philo *philo)
 	int		error;
 
 	change_state(philo, THINK);
-	error = print_action(philo, philo->id, "is thinking");
+	error = print_action(philo, "is thinking");
 	if (error == 0)
 		wait_time(philo->now, philo->next_eat_time - philo->now);
 	if (philo->id == 1 && philo->simulation->num_philo == 1 && philo->one_philo)
