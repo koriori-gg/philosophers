@@ -14,37 +14,31 @@ void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 int	pick_up_fork(t_philo *philo,
 	pthread_mutex_t *fork_a, pthread_mutex_t *fork_b)
 {
+	int	error;
+
 	pthread_mutex_lock(fork_a);
-	if (should_stop(philo))
-	{
+	error = print_action(philo, philo->id, get_time(), "has taken a fork");
+	if (error == -1 || (philo->id == 1 && philo->simulation->num_philo == 1))
 		put_down_fork(fork_a, NULL);
-		return (-1);
-	}
-	print_message(philo, philo->id, get_time(), "has taken a fork");
-	if (philo->id == 1 && philo->simulation->num_philo == 1)
+	else
 	{
-		put_down_fork(fork_a, NULL);
-		return (-1);
+		pthread_mutex_lock(fork_b);
+		error = print_action(philo, philo->id, get_time(), "has taken a fork");
+		if (error == -1)
+			put_down_fork(fork_a, fork_b);
 	}
-	pthread_mutex_lock(fork_b);
-	if (should_stop(philo))
-	{
-		put_down_fork(fork_a, fork_b);
-		return (-1);
-	}
-	print_message(philo, philo->id, get_time(), "has taken a fork");
-	return (0);
+	return (error);
 }
 
 int	philo_take_fork(t_philo *philo)
 {
-	if (should_stop(philo))
-		return (-1);
+	int	error;
+
 	if (philo->id % 2 == 1)
-		return (pick_up_fork(philo, &(philo->l_fork), philo->r_fork));
+		error = pick_up_fork(philo, &(philo->l_fork), philo->r_fork);
 	else
-		return (pick_up_fork(philo, philo->r_fork, &(philo->l_fork)));
+		error = pick_up_fork(philo, philo->r_fork, &(philo->l_fork));
 	if (philo->id == 1 && philo->simulation->num_philo == 1)
 		philo->one_philo = true;
-	return (0);
+	return (error);
 }

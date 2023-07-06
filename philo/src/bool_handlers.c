@@ -32,10 +32,8 @@ bool	should_stop(t_philo *philo)
 	bool	flg;
 
 	flg = false;
-	pthread_mutex_lock(&(philo->simulation->stop_mutex));
 	if (philo->simulation->stop)
 		flg = true;
-	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 	return (flg);
 }
 

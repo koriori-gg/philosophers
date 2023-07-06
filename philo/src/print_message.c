@@ -1,11 +1,36 @@
 #include "philo.h"
 
-void	print_message(t_philo *philo,long id, long now, char *message)
+int	is_dead(t_philo *philo)
+{
+	long	now;
+
+	now = get_time();
+	if (now - philo->last_eat_time >= philo->simulation->time_to_die)
+		return (-1);
+	return (0);
+}
+
+void	print_dead(t_philo *philo,long id, long now, char *message)
 {
 	long	time;
 
 	time = now - philo->simulation->start;
-	pthread_mutex_lock(&(philo->simulation->print_mutex));
 	printf("%ld %ld %s\n", time, id, message);
-	pthread_mutex_unlock(&(philo->simulation->print_mutex));
+	philo->simulation->stop = true;
+}
+
+int	print_action(t_philo *philo,long id, long now, char *message)
+{
+	long	time;
+	int		stop;
+
+	time = now - philo->simulation->start;
+	stop = 0;
+	pthread_mutex_lock(&(philo->simulation->stop_mutex));
+	if (should_stop(philo))
+		stop = -1;
+	if (stop == 0)
+		printf("%ld %ld %s\n", time, id, message);
+	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
+	return (stop);
 }

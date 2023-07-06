@@ -38,7 +38,6 @@ typedef struct s_simulation {
 	long			must_eat;
 	long			start;
 	bool			stop;
-	pthread_mutex_t	print_mutex;
 	pthread_mutex_t	stop_mutex;
 	t_philo			*philo;
 }	t_simulation;
@@ -60,7 +59,8 @@ int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
 //print_message
-void	print_message(t_philo *philo,long id, long now, char *message);
+int		print_action(t_philo *philo,long id, long now, char *message);
+void	print_dead(t_philo *philo,long id, long now, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
 bool	should_stop(t_philo *philo);
