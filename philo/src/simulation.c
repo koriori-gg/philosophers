@@ -32,10 +32,10 @@ void	monitor(t_simulation *simulation)
 		pthread_mutex_lock(&(simulation->last_eat_mutex));
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
+			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			change_state(&(simulation->philo[i]), DIED);
 			print_message(&(simulation->philo[i]), simulation->philo[i].id, now, "died");
 			update_stop(&(simulation->philo[i]));
-			pthread_mutex_unlock(&(simulation->last_eat_mutex));
 			break ;
 		}
 		pthread_mutex_unlock(&(simulation->last_eat_mutex));
