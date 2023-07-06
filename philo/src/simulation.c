@@ -3,15 +3,21 @@
 void	*philo_life_cycle(void *arg)
 {
 	t_philo	*philo;
+	int		error;
 
 	philo = (t_philo *)arg;
+	error = 0;
 	wait_start_time(philo->simulation->start);
-	while (!should_stop(philo))
+	while (error == 0 && !should_stop(philo))
 	{
-		philo_think(philo);
-		philo_take_fork(philo);
-		philo_eat(philo);
-		philo_sleep(philo);
+		if (is_same_state(philo, SLEEP))
+			error = philo_think(philo);
+		else if (is_same_state(philo, THINK))
+			error = philo_eat(philo);
+		else if (is_same_state(philo, EAT))
+			error = philo_sleep(philo);
+		else
+			error = -1;
 	}
 	put_down_fork(&(philo->l_fork), philo->r_fork);
 	return (NULL);
@@ -26,8 +32,8 @@ void	monitor(t_simulation *simulation)
 	wait_start_time(simulation->start);
 	while (1)
 	{
-		if (simulation->must_eat != -1 && has_finished_eat(simulation))
-			break ;
+		// if (simulation->must_eat != -1 && has_finished_eat(simulation))
+		// 	break ;
 		now = get_time();
 		pthread_mutex_lock(&(simulation->philo[i].philo_mutex));
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)

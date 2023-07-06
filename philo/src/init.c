@@ -30,6 +30,7 @@ static void	init_philo(t_simulation *simulation)
 	{
 		simulation->philo[i].id = i + 1;
 		simulation->philo[i].eat_count = 0;
+		simulation->philo[i].state = SLEEP;
 		simulation->philo[i].last_eat_time = simulation->start;
 		simulation->philo[i].next_eat_time = simulation->start + set_wait_time(simulation, i + 1);
 		simulation->philo[i].one_philo = false;

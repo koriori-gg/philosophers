@@ -11,13 +11,9 @@
 # include <sys/time.h>
 
 enum e_state {
-	WAIT,
-	MIDDLE,
-	READY,
 	EAT,
 	SLEEP,
 	THINK,
-	DIED
 };
 
 typedef struct s_philo {
@@ -56,16 +52,15 @@ void	monitor(t_simulation *simulation);
 void	*philo_life_cycle(void *arg);
 //fork
 void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
-void	philo_take_fork(t_philo *philo);
-void	pick_up_fork(t_philo *philo,
+int		philo_take_fork(t_philo *philo);
+int		pick_up_fork(t_philo *philo,
 			pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
 //action
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
+int		philo_eat(t_philo *philo);
+int		philo_sleep(t_philo *philo);
+int		philo_think(t_philo *philo);
 //print_message
-// bool	print_message(t_philo *philo, long time);
-bool	print_message(t_philo *philo,long id, long now, char *message);
+void	print_message(t_philo *philo,long id, long now, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
 bool	should_stop(t_philo *philo);
