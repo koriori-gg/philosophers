@@ -40,6 +40,7 @@ void	monitor(t_simulation *simulation)
 		{
 			pthread_mutex_lock(&(simulation->stop_mutex));
 			print_dead(&(simulation->philo[i]), simulation->philo[i].id, now, "died");
+			simulation->stop = true;
 			pthread_mutex_unlock(&(simulation->stop_mutex));
 			pthread_mutex_unlock(&(simulation->philo[i].philo_mutex));
 			break ;

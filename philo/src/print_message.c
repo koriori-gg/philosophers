@@ -16,7 +16,6 @@ void	print_dead(t_philo *philo,long id, long now, char *message)
 
 	time = now - philo->simulation->start;
 	printf("%ld %ld %s\n", time, id, message);
-	philo->simulation->stop = true;
 }
 
 int	print_action(t_philo *philo, char *message)
