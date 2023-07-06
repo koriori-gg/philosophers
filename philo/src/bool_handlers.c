@@ -46,17 +46,12 @@ bool	has_finished_eat(t_simulation *simulation)
 	if (simulation->must_eat == -1)
 		return (false);
 	i = 0;
-	pthread_mutex_lock(&(simulation->eat_count_mutex));
 	while (i < simulation->num_philo)
 	{
 		if (simulation->philo[i].eat_count < simulation->must_eat)
-		{
-			pthread_mutex_unlock(&(simulation->eat_count_mutex));
 			return (false);
-		}
 		i++;
 	}
-	pthread_mutex_unlock(&(simulation->eat_count_mutex));
 	pthread_mutex_lock(&(simulation->stop_mutex));
 	simulation->stop = true;
 	pthread_mutex_unlock(&(simulation->stop_mutex));
@@ -65,12 +60,7 @@ bool	has_finished_eat(t_simulation *simulation)
 
 bool	is_same_state(t_philo *philo, int state)
 {
-	pthread_mutex_lock(&(philo->simulation->state_mutex));
 	if (philo->state == state)
-	{
-		pthread_mutex_unlock(&(philo->simulation->state_mutex));
 		return (true);
-	}
-	pthread_mutex_unlock(&(philo->simulation->state_mutex));
 	return (false);
 }

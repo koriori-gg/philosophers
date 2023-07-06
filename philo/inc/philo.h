@@ -28,6 +28,7 @@ typedef struct s_philo {
 	int					state;
 	bool				one_philo;
 	pthread_t			thread;
+	pthread_mutex_t		philo_mutex;
 	pthread_mutex_t		l_fork;
 	pthread_mutex_t		*r_fork;
 	struct s_simulation	*simulation;
@@ -42,10 +43,7 @@ typedef struct s_simulation {
 	long			start;
 	bool			stop;
 	pthread_mutex_t	print_mutex;
-	pthread_mutex_t	eat_count_mutex;
-	pthread_mutex_t	state_mutex;
 	pthread_mutex_t	stop_mutex;
-	pthread_mutex_t	last_eat_mutex;
 	t_philo			*philo;
 }	t_simulation;
 
