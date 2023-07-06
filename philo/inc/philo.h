@@ -22,6 +22,7 @@ typedef struct s_philo {
 	long				last_eat_time;
 	long				next_eat_time;
 	int					state;
+	long				now;
 	bool				one_philo;
 	pthread_t			thread;
 	pthread_mutex_t		philo_mutex;
@@ -59,7 +60,7 @@ int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
 //print_message
-int		print_action(t_philo *philo,long id, long now, char *message);
+int		print_action(t_philo *philo,long id, char *message);
 void	print_dead(t_philo *philo,long id, long now, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);

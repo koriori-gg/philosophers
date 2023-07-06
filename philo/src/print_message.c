@@ -19,14 +19,15 @@ void	print_dead(t_philo *philo,long id, long now, char *message)
 	philo->simulation->stop = true;
 }
 
-int	print_action(t_philo *philo,long id, long now, char *message)
+int	print_action(t_philo *philo,long id, char *message)
 {
 	long	time;
 	int		stop;
 
-	time = now - philo->simulation->start;
 	stop = 0;
 	pthread_mutex_lock(&(philo->simulation->stop_mutex));
+	philo->now = get_time();
+	time = philo->now - philo->simulation->start;
 	if (should_stop(philo))
 		stop = -1;
 	if (stop == 0)

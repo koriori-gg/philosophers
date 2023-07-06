@@ -34,8 +34,8 @@ void	monitor(t_simulation *simulation)
 	{
 		// if (simulation->must_eat != -1 && has_finished_eat(simulation))
 		// 	break ;
-		now = get_time();
 		pthread_mutex_lock(&(simulation->philo[i].philo_mutex));
+		now = get_time();
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
 			pthread_mutex_lock(&(simulation->stop_mutex));
