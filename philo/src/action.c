@@ -4,12 +4,8 @@ int	philo_eat(t_philo *philo)
 {
 	long	now;
 
-	philo_take_fork(philo);
-	if (should_stop(philo))
-	{
-		put_down_fork(&(philo->l_fork), philo->r_fork);
+	if (philo_take_fork(philo) == -1)
 		return (-1);
-	}
 	now = get_time();
 	pthread_mutex_lock(&(philo->philo_mutex));
 	change_state(philo, EAT);
