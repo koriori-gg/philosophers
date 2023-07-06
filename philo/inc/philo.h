@@ -26,6 +26,7 @@ typedef struct s_philo {
 	long				last_eat_time;
 	long				next_eat_time;
 	int					state;
+	bool				one_philo;
 	pthread_t			thread;
 	pthread_mutex_t		l_fork;
 	pthread_mutex_t		*r_fork;

@@ -10,16 +10,16 @@ long	get_time(void)
 
 void	wait_start_time(long start)
 {
-	useconds_t	remain;
-	long		now;
+	long	remain;
+	long	now;
 
 	now = get_time();
-	remain = (useconds_t)(start - now);
+	remain = start - now;
 	while (remain > 0)
 	{
-		usleep(remain / 2);
+		usleep((useconds_t)(remain / 2));
 		now = get_time();
-		remain = (useconds_t)(start - now);
+		remain = start - now;
 	}
 }
 

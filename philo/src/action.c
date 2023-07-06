@@ -4,6 +4,8 @@ void	philo_eat(t_philo *philo)
 {
 	long	now;
 
+	if (!is_same_state(philo, READY))
+		return ;
 	change_state(philo, EAT);
 	now = get_time();
 	update_last_eat_time(philo, now);
@@ -22,6 +24,8 @@ void	philo_sleep(t_philo *philo)
 {
 	long	now;
 
+	if (!is_same_state(philo, EAT))
+		return ;
 	change_state(philo, SLEEP);
 	now = get_time();
 	if (!print_message(philo, now))
@@ -33,13 +37,13 @@ void	philo_think(t_philo *philo)
 {
 	long	now;
 
-	now = get_time();
-	if (philo->next_eat_time <= now)
+	if (is_same_state(philo, THINK))
 		return ;
+	now = get_time();
 	change_state(philo, THINK);
 	if (!print_message(philo, now))
 		return ;
 	wait_time(now, philo->next_eat_time - now);
-	if (philo->id == 1 && philo->simulation->num_philo == 1)
-		wait_time(now, philo->simulation->time_to_die * 2);
+	if (philo->id == 1 && philo->simulation->num_philo == 1 && philo->one_philo)
+		wait_time(now, philo->simulation->time_to_die);
 }
