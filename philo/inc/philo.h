@@ -88,5 +88,6 @@ bool	is_number(char *str);
 int		ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i, int i);
 //free
 int		free_philo(t_simulation *simulation, int count);
+int		free_philo_mutex(t_simulation *simulation, int count);
 int		free_fork(t_simulation *simulation, int count);
 #endif
