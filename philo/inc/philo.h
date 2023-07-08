@@ -39,6 +39,7 @@ typedef struct s_simulation {
 	long			must_eat;
 	long			start;
 	bool			stop;
+	pthread_t		monitor_thread;
 	pthread_mutex_t	stop_mutex;
 	t_philo			*philo;
 }	t_simulation;
@@ -48,7 +49,7 @@ int		init_simulation(int argc, char **argv, t_simulation *simulation);
 //simulation
 int		start_simulation(t_simulation *simulation);
 int		stop_simulation(t_simulation *simulation, int count);
-void	monitor(t_simulation *simulation);
+void	*monitor(void *arg);
 void	*philo_life_cycle(void *arg);
 //fork
 void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);

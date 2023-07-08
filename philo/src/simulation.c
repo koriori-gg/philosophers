@@ -23,11 +23,13 @@ void	*philo_life_cycle(void *arg)
 	return (NULL);
 }
 
-void	monitor(t_simulation *simulation)
+void	*monitor(void *arg)
 {
 	long	i;
 	long	now;
+	t_simulation *simulation;
 
+	simulation =(t_simulation *)arg;
 	i = 0;
 	wait_start_time(simulation->start);
 	while (1)
@@ -51,6 +53,7 @@ void	monitor(t_simulation *simulation)
 		if (simulation->num_philo == i)
 			i = 0;
 	}
+	return (NULL);
 }
 
 int	start_simulation(t_simulation *simulation)
@@ -65,7 +68,8 @@ int	start_simulation(t_simulation *simulation)
 				return (-1);
 		i++;
 	}
-	monitor(simulation);
+	if(pthread_create(&simulation->monitor_thread, NULL, monitor, simulation) != 0)
+				return (-1);
 	return (0);
 }
 
@@ -78,6 +82,8 @@ int	stop_simulation(t_simulation *simulation, int count)
 		return (-1);
 	if (free_philo(simulation, count) != 0)
 		return (-1);
+	if (pthread_join(simulation->monitor_thread, NULL) != 0)
+			return (-1);
 	free(simulation->philo);
 	return (0);
 }
