@@ -23,8 +23,8 @@ int	print_action(t_philo *philo, char *message)
 	long	time;
 	int		stop;
 
-	stop = 0;
 	pthread_mutex_lock(&(philo->simulation->stop_mutex));
+	stop = 0;
 	philo->now = get_time();
 	time = philo->now - philo->simulation->start;
 	if (should_stop(philo))
