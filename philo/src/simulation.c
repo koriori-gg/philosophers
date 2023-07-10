@@ -33,17 +33,17 @@ bool	check_philo(t_simulation *simulation)
 	need = true;
 	while (i < simulation->num_philo && need)
 	{
-		pthread_mutex_lock(&simulation->philo[i].philo_mutex);
-		pthread_mutex_lock(&simulation->monitor->stop_mutex);
+		pthread_mutex_lock(&(simulation->philo[i].philo_mutex));
 		now = get_time();
 		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
 		{
-			print_dead(now - simulation->start, simulation->philo[i].id, "is dead");
+			pthread_mutex_lock(&(simulation->monitor->stop_mutex));
+			print_dead(get_time() - simulation->start, simulation->philo[i].id, "is dead");
 			simulation->monitor->stop = true;
 			need = false;
+			pthread_mutex_unlock(&(simulation->monitor->stop_mutex));
 		}
-		pthread_mutex_unlock(&simulation->monitor->stop_mutex);
-		pthread_mutex_unlock(&simulation->philo[i].philo_mutex);
+		pthread_mutex_unlock(&(simulation->philo[i].philo_mutex));
 		i++;
 	}
 	return (need);
@@ -58,7 +58,7 @@ void	*monitor(void *arg)
 	need_to_continue = true;
 	while (need_to_continue)
 	{
-		usleep(1000);
+		usleep(INTERVAL);
 		need_to_continue = check_philo(simulation);
 	}
 	return (NULL);

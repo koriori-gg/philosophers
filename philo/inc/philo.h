@@ -49,6 +49,8 @@ typedef struct s_simulation {
 	t_monitor		*monitor;
 }	t_simulation;
 
+#define INTERVAL 1000
+
 //init
 int		init_simulation(int argc, char **argv, t_simulation *simulation);
 //simulation
