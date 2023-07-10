@@ -17,7 +17,6 @@ SRCS = \
 	src/time.c \
 	src/print_message.c \
 	src/simulation.c \
-	src/ft_pthread.c \
 	src/bool_handlers.c \
 	src/fork.c \
 	src/change_data.c \

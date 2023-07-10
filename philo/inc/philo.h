@@ -31,6 +31,13 @@ typedef struct s_philo {
 	struct s_simulation	*simulation;
 }	t_philo;
 
+typedef struct s_monitor {
+	bool				stop;
+	pthread_t			thread;
+	pthread_mutex_t		stop_mutex;
+	struct s_simulation	*simulation;
+}	t_monitor;
+
 typedef struct s_simulation {
 	long			num_philo;
 	long			time_to_die;
@@ -38,10 +45,8 @@ typedef struct s_simulation {
 	long			time_to_sleep;
 	long			must_eat;
 	long			start;
-	bool			stop;
-	pthread_t		monitor_thread;
-	pthread_mutex_t	stop_mutex;
 	t_philo			*philo;
+	t_monitor		*monitor;
 }	t_simulation;
 
 //init
@@ -62,18 +67,13 @@ int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
 //print_message
 int		update_philo(t_philo *philo, char *message, int state);
-void	print_dead(t_philo *philo,long id, long now, char *message);
+void	print_dead(long time, long id, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
-bool	should_stop(t_philo *philo);
 bool	has_finished_eat(t_simulation *simulation);
 bool	is_same_state(t_philo *philo, int state);
-bool	is_dead(t_philo *philo, long now);
 //change_data
 void	change_state(t_philo *philo, int state);
-void	add_eat_count(t_philo *philo);
-void	update_last_eat_time(t_philo *philo, long now);
-void	update_stop(t_philo *philo);
 void	set_next_eat_time(t_philo *philo);
 //cal
 long	calculate_next_eat_in_odd(t_philo *philo);
@@ -86,10 +86,7 @@ size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 bool	is_number(char *str);
-//pthread
-int		ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i, int i);
 //free
-int		free_philo(t_simulation *simulation, int count);
-int		free_philo_mutex(t_simulation *simulation, int count);
-int		free_fork(t_simulation *simulation, int count);
+int		join_all_thread(t_simulation *simulation, int count);
+int		free_all_mutex(t_simulation *simulation, int count);
 #endif
