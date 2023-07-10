@@ -71,7 +71,7 @@ int	start_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		if (pthread_create(&simulation->philo[i].thread, NULL,
+		if (pthread_create(&(simulation->philo[i].thread), NULL,
 			philo_life_cycle, &(simulation->philo[i])) != 0)
 		{
 			stop_simulation(simulation, i);
@@ -79,7 +79,7 @@ int	start_simulation(t_simulation *simulation)
 		}
 		i++;
 	}
-	if(pthread_create(&simulation->monitor->thread, NULL, monitor, simulation) != 0)
+	if(pthread_create(&(simulation->monitor->thread), NULL, monitor, simulation) != 0)
 	{
 		stop_simulation(simulation, simulation->num_philo);
 		return (-1);
