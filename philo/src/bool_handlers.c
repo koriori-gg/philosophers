@@ -27,30 +27,9 @@ bool	is_valid_argument(int argc, char **argv)
 	return (true);
 }
 
-bool	is_dead(t_philo *philo)
+bool	is_same_state(t_philo *philo, int state)
 {
-	if (philo->simulation->stop)
+	if (philo->state == state)
 		return (true);
 	return (false);
-}
-
-bool	has_finished_eat(t_philo *philo)
-{
-	t_simulation	*simulation;
-	int				i;
-
-	simulation = philo->simulation;
-	if (simulation->must_eat == -1)
-		return (false);
-	i = 0;
-	while (i < simulation->num_philo)
-	{
-		if (simulation->philo[i].eat_count < simulation->must_eat)
-			return (false);
-		i++;
-	}
-	ft_pthread_mutex_lock(&(simulation->mutex));
-	simulation->stop = true;
-	ft_pthread_mutex_unlock(&(simulation->mutex));
-	return (true);
 }

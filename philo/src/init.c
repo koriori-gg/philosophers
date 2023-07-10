@@ -30,8 +30,10 @@ static void	init_philo(t_simulation *simulation)
 	{
 		simulation->philo[i].id = i + 1;
 		simulation->philo[i].eat_count = 0;
+		simulation->philo[i].state = SLEEP;
 		simulation->philo[i].last_eat_time = simulation->start;
-		simulation->philo[i].wait_time = set_wait_time(simulation, i + 1);
+		simulation->philo[i].next_eat_time = simulation->start + set_wait_time(simulation, i + 1);
+		pthread_mutex_init(&(simulation->philo[i].philo_mutex), NULL);
 		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);
 		if (i > 0)
 			simulation->philo[i].r_fork = &(simulation->philo[i - 1].l_fork);
@@ -42,21 +44,29 @@ static void	init_philo(t_simulation *simulation)
 	}
 }
 
-void	init_simulation(int argc, char **argv, t_simulation *simulation)
+static void	init_monitor(t_simulation *simulation)
+{
+	simulation->monitor->stop = false;
+	pthread_mutex_init(&(simulation->monitor->stop_mutex), NULL);
+	simulation->monitor->simulation = simulation;
+}
+
+int	init_simulation(int argc, char **argv, t_simulation *simulation)
 {
 	simulation->num_philo = ft_atol(argv[1]);
 	simulation->time_to_die = ft_atol(argv[2]);
 	simulation->time_to_eat = ft_atol(argv[3]);
 	simulation->time_to_sleep = ft_atol(argv[4]);
-	simulation->start = get_time() + 1000;
-	simulation->stop = false;
+	simulation->start = get_time() + 2000;
 	simulation->must_eat = -1;
-	pthread_mutex_init(&(simulation->mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
 	simulation->philo = (t_philo *)malloc
 		(sizeof(t_philo) * simulation->num_philo);
-	if (!simulation->philo)
-		exit(1);
+	simulation->monitor = (t_monitor *)malloc(sizeof(t_monitor));
+	if (!simulation->philo || !simulation->monitor)
+		return (-1);
 	init_philo(simulation);
+	init_monitor(simulation);
+	return (0);
 }

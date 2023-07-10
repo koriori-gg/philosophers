@@ -1,29 +1,28 @@
 #include "philo.h"
 
-bool	print_message(t_philo *philo, long now)
+void	print_dead(long time, long id, char *message)
+{
+	printf("%ld %ld %s\n", time, id, message);
+}
+
+int	update_philo(t_philo *philo, char *message, int state)
 {
 	long	time;
+	int		stop;
 
-	ft_pthread_mutex_lock(&(philo->simulation->mutex));
-	if (philo->simulation->stop)
+	pthread_mutex_lock(&(philo->simulation->monitor->stop_mutex));
+	stop = 0;
+	philo->now = get_time();
+	time = philo->now - philo->simulation->start;
+	if (philo->simulation->monitor->stop)
+		stop = -1;
+	if (stop == 0)
+		printf("%ld %ld %s\n", time, philo->id, message);
+	if (state == EAT)
 	{
-		ft_pthread_mutex_unlock(&(philo->simulation->mutex));
-		return (false);
+		philo->last_eat_time = philo->now;
+		philo->eat_count += 1;
 	}
-	time = now - philo->simulation->start;
-	if (philo->state == WAIT)
-		printf("%ld %ld has taken a fork\n", time, philo->id);
-	if (philo->state == EAT)
-		printf("%ld %ld is eating\n", time, philo->id);
-	if (philo->state == SLEEP)
-		printf("%ld %ld is sleeping\n", time, philo->id);
-	if (philo->state == THINK)
-		printf("%ld %ld is thinking\n", time, philo->id);
-	if (philo->state == DIED)
-	{
-		printf("%ld %ld died\n", time, philo->id);
-		philo->simulation->stop = true;
-	}
-	ft_pthread_mutex_unlock(&(philo->simulation->mutex));
-	return (true);
+	pthread_mutex_unlock(&(philo->simulation->monitor->stop_mutex));
+	return (stop);
 }

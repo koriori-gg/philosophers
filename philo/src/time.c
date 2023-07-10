@@ -10,21 +10,29 @@ long	get_time(void)
 
 void	wait_start_time(long start)
 {
-	while (1)
+	long	remain;
+	long	now;
+
+	now = get_time();
+	remain = start - now;
+	while (remain > 0)
 	{
-		if (get_time() >= start)
-			break ;
+		usleep((useconds_t)(remain / 2));
+		now = get_time();
+		remain = start - now;
 	}
 }
 
-void	wait_time(long now, long time)
+void	wait_time(long start, long time)
 {
-	long	real_time;
+	long	remain;
+	long	now;
 
-	real_time = time * 2 / 3;
-	while (1)
+	remain = time * 1000;
+	while (remain > 0)
 	{
-		if (get_time() >= now + real_time)
-			return ;
+		usleep((useconds_t)(remain / 2));
+		now = get_time();
+		remain = (start + time - now) * 1000;
 	}
 }

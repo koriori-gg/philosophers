@@ -11,25 +11,31 @@
 # include <sys/time.h>
 
 enum e_state {
-	WAIT,
-	READY,
 	EAT,
 	SLEEP,
 	THINK,
-	DIED
 };
 
 typedef struct s_philo {
 	long				id;
 	long				eat_count;
 	long				last_eat_time;
-	long				wait_time;
+	long				next_eat_time;
 	int					state;
+	long				now;
 	pthread_t			thread;
+	pthread_mutex_t		philo_mutex;
 	pthread_mutex_t		l_fork;
 	pthread_mutex_t		*r_fork;
 	struct s_simulation	*simulation;
 }	t_philo;
+
+typedef struct s_monitor {
+	bool				stop;
+	pthread_t			thread;
+	pthread_mutex_t		stop_mutex;
+	struct s_simulation	*simulation;
+}	t_monitor;
 
 typedef struct s_simulation {
 	long			num_philo;
@@ -38,42 +44,50 @@ typedef struct s_simulation {
 	long			time_to_sleep;
 	long			must_eat;
 	long			start;
-	bool			stop;
-	pthread_mutex_t	mutex;
 	t_philo			*philo;
+	t_monitor		*monitor;
 }	t_simulation;
 
+#define INTERVAL 1000
+
 //init
-void	init_simulation(int argc, char **argv, t_simulation *simulation);
+int		init_simulation(int argc, char **argv, t_simulation *simulation);
 //simulation
-void	start_simulation(t_simulation *simulation);
-void	stop_simulation(t_simulation *simulation);
-void	monitor(t_simulation *simulation);
+int		start_simulation(t_simulation *simulation);
+int		stop_simulation(t_simulation *simulation, int count);
+void	*monitor(void *arg);
 void	*philo_life_cycle(void *arg);
+//fork
+void	put_down_fork(pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
+int		philo_take_fork(t_philo *philo);
+int		pick_up_fork(t_philo *philo,
+			pthread_mutex_t *fork_a, pthread_mutex_t *fork_b);
 //action
-void	philo_take_fork(t_philo *philo);
-void	philo_eat(t_philo *philo);
-void	philo_sleep(t_philo *philo);
-void	philo_think(t_philo *philo);
+int		philo_eat(t_philo *philo);
+int		philo_sleep(t_philo *philo);
+int		philo_think(t_philo *philo);
 //print_message
-bool	print_message(t_philo *philo, long time);
+int		update_philo(t_philo *philo, char *message, int state);
+void	print_dead(long time, long id, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
-bool	is_dead(t_philo *philo);
-bool	has_finished_eat(t_philo *philo);
+bool	has_finished_eat(t_simulation *simulation);
+bool	is_same_state(t_philo *philo, int state);
+//change_data
+void	change_state(t_philo *philo, int state);
+void	set_next_eat_time(t_philo *philo);
+//cal
+long	calculate_next_eat_in_odd(t_philo *philo);
 //time
 long	get_time(void);
 void	wait_start_time(long start);
-void	wait_time(long now, long time);
+void	wait_time(long start, long time);
 //libft
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
 int		ft_isdigit(int d);
 bool	is_number(char *str);
-//pthread
-void	ft_pthread_mutex_lock(pthread_mutex_t *mtx);
-void	ft_pthread_mutex_unlock(pthread_mutex_t *mtx);
-void	ft_pthread_mutex_destroy(pthread_mutex_t *mtx);
-void	ft_pthread_create(pthread_t *thread, void *func, t_philo *philo_i);
-void	ft_pthread_join(pthread_t thread);
+//free
+int		join_all_thread(t_simulation *simulation, int count);
+int		free_all_mutex(t_simulation *simulation, int count);
 #endif
