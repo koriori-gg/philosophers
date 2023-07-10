@@ -62,3 +62,10 @@ bool	is_same_state(t_philo *philo, int state)
 		return (true);
 	return (false);
 }
+
+bool	is_dead(t_philo *philo, long now)
+{
+	if (now - philo->last_eat_time >= philo->simulation->time_to_die)
+		return (-1);
+	return (0);
+}

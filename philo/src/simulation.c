@@ -34,12 +34,10 @@ void	*monitor(void *arg)
 	wait_start_time(simulation->start);
 	while (1)
 	{
-		// if (simulation->must_eat != -1 && has_finished_eat(simulation))
-		// 	break ;
 		pthread_mutex_lock(&(simulation->philo[i].philo_mutex));
 		pthread_mutex_lock(&(simulation->stop_mutex));
 		now = get_time();
-		if (now - simulation->philo[i].last_eat_time >= simulation->time_to_die)
+		if (is_dead(&simulation->philo[i], now))
 		{
 			print_dead(&(simulation->philo[i]), simulation->philo[i].id, now, "died");
 			simulation->stop = true;

@@ -61,13 +61,14 @@ int		philo_eat(t_philo *philo);
 int		philo_sleep(t_philo *philo);
 int		philo_think(t_philo *philo);
 //print_message
-int		print_action(t_philo *philo, char *message);
+int		update_philo(t_philo *philo, char *message, int state);
 void	print_dead(t_philo *philo,long id, long now, char *message);
 //bool_handlers
 bool	is_valid_argument(int argc, char **argv);
 bool	should_stop(t_philo *philo);
 bool	has_finished_eat(t_simulation *simulation);
 bool	is_same_state(t_philo *philo, int state);
+bool	is_dead(t_philo *philo, long now);
 //change_data
 void	change_state(t_philo *philo, int state);
 void	add_eat_count(t_philo *philo);

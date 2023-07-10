@@ -1,15 +1,5 @@
 #include "philo.h"
 
-int	is_dead(t_philo *philo)
-{
-	long	now;
-
-	now = get_time();
-	if (now - philo->last_eat_time >= philo->simulation->time_to_die)
-		return (-1);
-	return (0);
-}
-
 void	print_dead(t_philo *philo,long id, long now, char *message)
 {
 	long	time;
@@ -18,7 +8,7 @@ void	print_dead(t_philo *philo,long id, long now, char *message)
 	printf("%ld %ld %s\n", time, id, message);
 }
 
-int	print_action(t_philo *philo, char *message)
+int	update_philo(t_philo *philo, char *message, int state)
 {
 	long	time;
 	int		stop;
@@ -31,6 +21,11 @@ int	print_action(t_philo *philo, char *message)
 		stop = -1;
 	if (stop == 0)
 		printf("%ld %ld %s\n", time, philo->id, message);
+	if (state == EAT)
+	{
+		update_last_eat_time(philo, philo->now);
+		add_eat_count(philo);
+	}
 	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 	return (stop);
 }
