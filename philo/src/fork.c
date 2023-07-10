@@ -38,7 +38,5 @@ int	philo_take_fork(t_philo *philo)
 		stop = pick_up_fork(philo, &(philo->l_fork), philo->r_fork);
 	else
 		stop = pick_up_fork(philo, philo->r_fork, &(philo->l_fork));
-	if (philo->id == 1 && philo->simulation->num_philo == 1)
-		philo->one_philo = true;
 	return (stop);
 }

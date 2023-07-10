@@ -38,7 +38,7 @@ int	philo_think(t_philo *philo)
 	stop = update_philo(philo, "is thinking", THINK);
 	if (stop == 0)
 		wait_time(philo->now, philo->next_eat_time - philo->now);
-	if (philo->id == 1 && philo->simulation->num_philo == 1 && philo->one_philo)
-		wait_time(philo->now, philo->simulation->time_to_die);
+	if (philo->id == 1 && philo->simulation->num_philo == 1)
+		wait_time(philo->now, philo->simulation->time_to_die + 1);
 	return (stop);
 }

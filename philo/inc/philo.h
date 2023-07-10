@@ -23,7 +23,6 @@ typedef struct s_philo {
 	long				next_eat_time;
 	int					state;
 	long				now;
-	bool				one_philo;
 	pthread_t			thread;
 	pthread_mutex_t		philo_mutex;
 	pthread_mutex_t		l_fork;
