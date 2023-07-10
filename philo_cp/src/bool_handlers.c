@@ -1,0 +1,71 @@
+#include "philo.h"
+
+bool	is_valid_argument(int argc, char **argv)
+{
+	int		i;
+	long	num;
+
+	if (argc != 5 && argc != 6)
+	{
+		printf("usage: ./philo num_philo die eat sleep\n");
+		return (false);
+	}
+	if (ft_atol(argv[1]) == 0)
+		return (false);
+	i = 1;
+	while (i < argc)
+	{
+		if (!is_number(argv[i]))
+			return (false);
+		num = ft_atol(argv[i]);
+		if ((num == 0 || num == -1) && ft_strlen(argv[i]) > 2)
+			return (false);
+		if (num <= 0 || num > INT_MAX)
+			return (false);
+		i++;
+	}
+	return (true);
+}
+
+bool	should_stop(t_philo *philo)
+{
+	bool	flg;
+
+	flg = false;
+	if (philo->simulation->stop)
+		flg = true;
+	return (flg);
+}
+
+bool	has_finished_eat(t_simulation *simulation)
+{
+	int	i;
+
+	if (simulation->must_eat == -1)
+		return (false);
+	i = 0;
+	while (i < simulation->num_philo)
+	{
+		if (simulation->philo[i].eat_count < simulation->must_eat)
+			return (false);
+		i++;
+	}
+	pthread_mutex_lock(&(simulation->stop_mutex));
+	simulation->stop = true;
+	pthread_mutex_unlock(&(simulation->stop_mutex));
+	return (true);
+}
+
+bool	is_same_state(t_philo *philo, int state)
+{
+	if (philo->state == state)
+		return (true);
+	return (false);
+}
+
+bool	is_dead(t_philo *philo, long now)
+{
+	if (now - philo->last_eat_time >= philo->simulation->time_to_die)
+		return (-1);
+	return (0);
+}
