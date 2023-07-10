@@ -17,17 +17,13 @@ int	pick_up_fork(t_philo *philo,
 	int	error;
 
 	pthread_mutex_lock(fork_a);
-	pthread_mutex_lock(&(philo->simulation->stop_mutex));
 	error = update_philo(philo, "has taken a fork", THINK);
-	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 	if (error == -1 || (philo->id == 1 && philo->simulation->num_philo == 1))
 		put_down_fork(fork_a, NULL);
 	else
 	{
 		pthread_mutex_lock(fork_b);
-		pthread_mutex_lock(&(philo->simulation->stop_mutex));
 		error = update_philo(philo, "has taken a fork", THINK);
-		pthread_mutex_unlock(&(philo->simulation->stop_mutex));
 		if (error == -1)
 			put_down_fork(fork_a, fork_b);
 	}
