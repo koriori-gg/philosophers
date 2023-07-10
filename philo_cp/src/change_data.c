@@ -5,23 +5,6 @@ void	change_state(t_philo *philo, int state)
 	philo->state = state;
 }
 
-void	add_eat_count(t_philo *philo)
-{
-	philo->eat_count += 1;
-}
-
-void	update_last_eat_time(t_philo *philo, long now)
-{
-	philo->last_eat_time = now;
-}
-
-void	update_stop(t_philo *philo)
-{
-	pthread_mutex_lock(&(philo->simulation->stop_mutex));
-	philo->simulation->stop = true;
-	pthread_mutex_unlock(&(philo->simulation->stop_mutex));
-}
-
 void	set_next_eat_time(t_philo *philo)
 {
 	if (philo->simulation->num_philo % 2 == 0)

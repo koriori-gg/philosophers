@@ -44,7 +44,7 @@ static int	free_philo_mutex(t_simulation *simulation, int count)
 
 int	join_all_thread(t_simulation *simulation, int count)
 {
-	if (pthread_join(simulation->monitor_thread, NULL) != 0)
+	if (pthread_join(simulation->monitor->thread, NULL) != 0)
 			return (-1);
 	if (free_philo(simulation, count) != 0)
 		return (-1);
@@ -53,7 +53,7 @@ int	join_all_thread(t_simulation *simulation, int count)
 
 int	free_all_mutex(t_simulation *simulation, int count)
 {
-	if (pthread_mutex_destroy(&simulation->stop_mutex) != 0)
+	if (pthread_mutex_destroy(&simulation->monitor->stop_mutex) != 0)
 		return (-1);
 	if (free_fork(simulation, count) != 0)
 		return (-1);

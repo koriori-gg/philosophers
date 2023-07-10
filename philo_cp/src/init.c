@@ -45,6 +45,13 @@ static void	init_philo(t_simulation *simulation)
 	}
 }
 
+static void	init_monitor(t_simulation *simulation)
+{
+	simulation->monitor->stop = false;
+	pthread_mutex_init(&(simulation->monitor->stop_mutex), NULL);
+	simulation->monitor->simulation = simulation;
+}
+
 int	init_simulation(int argc, char **argv, t_simulation *simulation)
 {
 	simulation->num_philo = ft_atol(argv[1]);
@@ -52,15 +59,15 @@ int	init_simulation(int argc, char **argv, t_simulation *simulation)
 	simulation->time_to_eat = ft_atol(argv[3]);
 	simulation->time_to_sleep = ft_atol(argv[4]);
 	simulation->start = get_time() + 2000;
-	simulation->stop = false;
 	simulation->must_eat = -1;
-	pthread_mutex_init(&(simulation->stop_mutex), NULL);
 	if (argc == 6)
 		simulation->must_eat = ft_atol(argv[5]);
 	simulation->philo = (t_philo *)malloc
 		(sizeof(t_philo) * simulation->num_philo);
-	if (!simulation->philo)
+	simulation->monitor = (t_monitor *)malloc(sizeof(t_monitor));
+	if (!simulation->philo || !simulation->monitor)
 		return (-1);
 	init_philo(simulation);
+	init_monitor(simulation);
 	return (0);
 }
