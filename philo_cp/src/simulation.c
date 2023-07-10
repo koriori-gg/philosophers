@@ -23,37 +23,6 @@ void	*philo_life_cycle(void *arg)
 	return (NULL);
 }
 
-void	*monitor(void *arg)
-{
-	long	i;
-	long	now;
-	t_simulation *simulation;
-
-	simulation =(t_simulation *)arg;
-	i = 0;
-	wait_start_time(simulation->start);
-	while (1)
-	{
-		pthread_mutex_lock(&(simulation->philo[i].philo_mutex));
-		pthread_mutex_lock(&(simulation->stop_mutex));
-		now = get_time();
-		if (is_dead(&simulation->philo[i], now))
-		{
-			print_dead(&(simulation->philo[i]), simulation->philo[i].id, now, "died");
-			simulation->stop = true;
-			pthread_mutex_unlock(&(simulation->stop_mutex));
-			pthread_mutex_unlock(&(simulation->philo[i].philo_mutex));
-			break ;
-		}
-		pthread_mutex_unlock(&(simulation->stop_mutex));
-		pthread_mutex_unlock(&(simulation->philo[i].philo_mutex));
-		i++;
-		if (simulation->num_philo == i)
-			i = 0;
-	}
-	return (NULL);
-}
-
 int	start_simulation(t_simulation *simulation)
 {
 	int	i;
@@ -61,27 +30,26 @@ int	start_simulation(t_simulation *simulation)
 	i = 0;
 	while (i < simulation->num_philo)
 	{
-		if(ft_pthread_create(&simulation->philo[i].thread,
-			philo_life_cycle, &(simulation->philo[i]), i) != 0)
+		if (pthread_create(&simulation->philo[i].thread, NULL,
+			philo_life_cycle, &(simulation->philo[i])) != 0)
+		{
+			stop_simulation(simulation, i);
 				return (-1);
+		}
 		i++;
 	}
 	if(pthread_create(&simulation->monitor_thread, NULL, monitor, simulation) != 0)
-				return (-1);
+	{
+		stop_simulation(simulation, simulation->num_philo);
+		return (-1);
+	}
 	return (0);
 }
 
 int	stop_simulation(t_simulation *simulation, int count)
 {
-	pthread_mutex_destroy(&simulation->stop_mutex);
-	if (free_fork(simulation, count) != 0)
-		return (-1);
-	if (free_philo_mutex(simulation, count) != 0)
-		return (-1);
-	if (free_philo(simulation, count) != 0)
-		return (-1);
-	if (pthread_join(simulation->monitor_thread, NULL) != 0)
-			return (-1);
+	join_all_thread(simulation, count);
+	free_all_mutex(simulation, count);
 	free(simulation->philo);
 	return (0);
 }
