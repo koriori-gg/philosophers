@@ -3,21 +3,21 @@
 void	*philo_life_cycle(void *arg)
 {
 	t_philo	*philo;
-	int		error;
+	int		stop;
 
 	philo = (t_philo *)arg;
-	error = 0;
+	stop = 0;
 	wait_start_time(philo->simulation->start);
-	while (error == 0)
+	while (stop == 0)
 	{
 		if (is_same_state(philo, SLEEP))
-			error = philo_think(philo);
+			stop = philo_think(philo);
 		else if (is_same_state(philo, THINK))
-			error = philo_eat(philo);
+			stop = philo_eat(philo);
 		else if (is_same_state(philo, EAT))
-			error = philo_sleep(philo);
+			stop = philo_sleep(philo);
 		else
-			error = -1;
+			stop = -1;
 	}
 	put_down_fork(&(philo->l_fork), philo->r_fork);
 	return (NULL);
