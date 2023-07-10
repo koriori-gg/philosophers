@@ -28,11 +28,11 @@ void	wait_time(long start, long time)
 	long	remain;
 	long	now;
 
-	remain = time;
+	remain = time * 1000;
 	while (remain > 0)
 	{
 		usleep((useconds_t)(remain / 2));
 		now = get_time();
-		remain = start + time - now;
+		remain = (start + time - now) * 1000;
 	}
 }

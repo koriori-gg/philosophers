@@ -22,6 +22,7 @@ SRCS = \
 	src/change_data.c \
 	src/calculate_time.c \
 	src/free.c \
+	src/monitor.c \
 	src/is_number.c \
 	src/ft_strlen.c \
 	src/ft_atol.c \
