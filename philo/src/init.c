@@ -33,6 +33,7 @@ static void	init_philo(t_simulation *simulation)
 		simulation->philo[i].state = SLEEP;
 		simulation->philo[i].last_eat_time = simulation->start;
 		simulation->philo[i].next_eat_time = simulation->start + set_wait_time(simulation, i + 1);
+		simulation->philo[i].ideal_time = simulation->start;
 		pthread_mutex_init(&(simulation->philo[i].philo_mutex), NULL);
 		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);
 		if (i > 0)

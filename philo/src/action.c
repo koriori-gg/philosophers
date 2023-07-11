@@ -12,7 +12,7 @@ int	philo_eat(t_philo *philo)
 		stop = update_philo(philo, "is eating", EAT);
 		pthread_mutex_unlock(&(philo->philo_mutex));
 		if (stop == 0)
-			wait_time(philo->now, philo->simulation->time_to_eat);
+			ideal_wait_time(philo, EAT);
 		set_next_eat_time(philo);
 	}
 	put_down_fork(&(philo->l_fork), philo->r_fork);
@@ -26,7 +26,7 @@ int	philo_sleep(t_philo *philo)
 	change_state(philo, SLEEP);
 	stop = update_philo(philo, "is sleeping", SLEEP);
 	if (stop == 0)
-		wait_time(philo->now, philo->simulation->time_to_sleep);
+		ideal_wait_time(philo, SLEEP);
 	return (stop);
 }
 
@@ -37,7 +37,7 @@ int	philo_think(t_philo *philo)
 	change_state(philo, THINK);
 	stop = update_philo(philo, "is thinking", THINK);
 	if (stop == 0)
-		wait_time(philo->now, philo->next_eat_time - philo->now);
+		ideal_wait_time(philo, THINK);
 	if (philo->id == 1 && philo->simulation->num_philo == 1)
 		wait_time(philo->now, philo->simulation->time_to_die + 1);
 	return (stop);

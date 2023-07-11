@@ -13,7 +13,7 @@ int	update_philo(t_philo *philo, char *message, int state)
 	pthread_mutex_lock(&(philo->simulation->monitor->stop_mutex));
 	stop = 0;
 	philo->now = get_time();
-	time = philo->now - philo->simulation->start;
+	time = philo->ideal_time - philo->simulation->start;
 	if (philo->simulation->monitor->stop)
 		stop = -1;
 	if (stop == 0)

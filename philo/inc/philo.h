@@ -21,6 +21,7 @@ typedef struct s_philo {
 	long				eat_count;
 	long				last_eat_time;
 	long				next_eat_time;
+	long				ideal_time;
 	int					state;
 	long				now;
 	pthread_t			thread;
@@ -82,6 +83,7 @@ long	calculate_next_eat_in_odd(t_philo *philo);
 long	get_time(void);
 void	wait_start_time(long start);
 void	wait_time(long start, long time);
+void	ideal_wait_time(t_philo *philo, int state);
 //libft
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);
