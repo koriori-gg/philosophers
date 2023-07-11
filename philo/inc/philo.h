@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 11:33:05 by ihashimo          #+#    #+#             */
+/*   Updated: 2023/07/11 11:33:05 by ihashimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -21,6 +33,7 @@ typedef struct s_philo {
 	long				eat_count;
 	long				last_eat_time;
 	long				next_eat_time;
+	long				ideal_time;
 	int					state;
 	long				now;
 	pthread_t			thread;
@@ -48,7 +61,7 @@ typedef struct s_simulation {
 	t_monitor		*monitor;
 }	t_simulation;
 
-#define INTERVAL 1000
+# define INTERVAL 1000
 
 //init
 int		init_simulation(int argc, char **argv, t_simulation *simulation);
@@ -82,6 +95,7 @@ long	calculate_next_eat_in_odd(t_philo *philo);
 long	get_time(void);
 void	wait_start_time(long start);
 void	wait_time(long start, long time);
+void	ideal_wait_time(t_philo *philo, int state);
 //libft
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *nptr);

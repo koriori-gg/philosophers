@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_message.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 11:33:41 by ihashimo          #+#    #+#             */
+/*   Updated: 2023/07/11 11:33:42 by ihashimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 void	print_dead(long time, long id, char *message)
@@ -13,7 +25,7 @@ int	update_philo(t_philo *philo, char *message, int state)
 	pthread_mutex_lock(&(philo->simulation->monitor->stop_mutex));
 	stop = 0;
 	philo->now = get_time();
-	time = philo->now - philo->simulation->start;
+	time = philo->ideal_time - philo->simulation->start;
 	if (philo->simulation->monitor->stop)
 		stop = -1;
 	if (stop == 0)

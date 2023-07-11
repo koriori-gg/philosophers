@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   free.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 11:33:15 by ihashimo          #+#    #+#             */
+/*   Updated: 2023/07/11 11:33:15 by ihashimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static int	free_philo(t_simulation *simulation, int count)
@@ -45,7 +57,7 @@ static int	free_philo_mutex(t_simulation *simulation, int count)
 int	join_all_thread(t_simulation *simulation, int count)
 {
 	if (pthread_join(simulation->monitor->thread, NULL) != 0)
-			return (-1);
+		return (-1);
 	if (free_philo(simulation, count) != 0)
 		return (-1);
 	return (0);
