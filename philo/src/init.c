@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 11:33:32 by ihashimo          #+#    #+#             */
+/*   Updated: 2023/07/11 11:33:32 by ihashimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
 static long	set_wait_time(t_simulation *simulation, int id)
@@ -32,7 +44,8 @@ static void	init_philo(t_simulation *simulation)
 		simulation->philo[i].eat_count = 0;
 		simulation->philo[i].state = SLEEP;
 		simulation->philo[i].last_eat_time = simulation->start;
-		simulation->philo[i].next_eat_time = simulation->start + set_wait_time(simulation, i + 1);
+		simulation->philo[i].next_eat_time = simulation->start
+			+ set_wait_time(simulation, i + 1);
 		simulation->philo[i].ideal_time = simulation->start;
 		pthread_mutex_init(&(simulation->philo[i].philo_mutex), NULL);
 		pthread_mutex_init(&(simulation->philo[i].l_fork), NULL);

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/07/11 11:33:05 by ihashimo          #+#    #+#             */
+/*   Updated: 2023/07/11 11:33:05 by ihashimo         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -49,7 +61,7 @@ typedef struct s_simulation {
 	t_monitor		*monitor;
 }	t_simulation;
 
-#define INTERVAL 1000
+# define INTERVAL 1000
 
 //init
 int		init_simulation(int argc, char **argv, t_simulation *simulation);
