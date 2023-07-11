@@ -6,7 +6,7 @@
 /*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:33:07 by ihashimo          #+#    #+#             */
-/*   Updated: 2023/07/11 14:30:12 by ihashimo         ###   ########.fr       */
+/*   Updated: 2023/07/11 14:41:32 by ihashimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ bool	check_philo(t_simulation *simulation)
 		i++;
 	}
 	if (simulation->must_eat != -1 && eat_count == simulation->num_philo)
-		need = 	stop_philo(simulation, -1);
+		need = stop_philo(simulation, -1);
 	return (need);
 }
 
