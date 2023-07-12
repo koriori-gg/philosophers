@@ -6,7 +6,7 @@
 /*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:33:05 by ihashimo          #+#    #+#             */
-/*   Updated: 2023/07/11 11:33:05 by ihashimo         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:30:44 by ihashimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ bool	is_same_state(t_philo *philo, int state);
 //change_data
 void	change_state(t_philo *philo, int state);
 void	set_next_eat_time(t_philo *philo);
+long	ft_max(long a, long b);
 //cal
 long	calculate_next_eat_in_odd(t_philo *philo);
 //time
