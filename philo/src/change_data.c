@@ -6,7 +6,7 @@
 /*   By: ihashimo <ihashimo@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 11:34:00 by ihashimo          #+#    #+#             */
-/*   Updated: 2023/07/11 11:34:01 by ihashimo         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:08:18 by ihashimo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	set_next_eat_time(t_philo *philo)
 	else if (philo->simulation->num_philo == 3)
 		philo->next_eat_time
 			= philo->ideal_time + philo->simulation->time_to_eat * 2;
-	else if (philo->simulation->num_philo == 3)
+	else if (philo->simulation->num_philo == 5)
 		philo->next_eat_time
 			= philo->ideal_time + philo->simulation->time_to_eat * 3 / 2;
 	else
